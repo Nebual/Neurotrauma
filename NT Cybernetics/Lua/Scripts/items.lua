@@ -156,6 +156,7 @@ NTCyb.ItemMethods.cyberleg = function(item, usingCharacter, targetCharacter, lim
     end
 end
 
+-- Crowbar: detaches a Cyberlimb (if skilled and intact)
 NTCyb.ItemMethods.crowbar = function(item, usingCharacter, targetCharacter, limb) 
     local limbtype = HF.NormalizeLimbType(limb.type)
 
