@@ -1,9 +1,15 @@
 -- Allow the crowbar to remove cybernetics from dead bodies
 -- by patching character.IsDead to temporarily return false during the resolution of the 'apply crowbar' in the Health UI
--- TODO: this doesn't visually update the body, but it does otherwise seem to work
+local allowedNecromancyItems = {
+	crowbar = 1,
+	screwdriver = 1,
+	weldingtool = 1,
+	steel = 1,
+	fpgacircuit = 1,
+}
 local temporarilyUndeadCharacter = nil
 Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
-	if instance.Character.IsDead and ptable["item"].Prefab.Identifier.Value == "crowbar" then
+	if instance.Character.IsDead and allowedNecromancyItems[ptable["item"].Prefab.Identifier.Value] ~= nil then
 		temporarilyUndeadCharacter = instance.Character
 	end
 end, Hook.HookMethodType.Before)
