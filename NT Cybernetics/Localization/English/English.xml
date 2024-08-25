@@ -15,6 +15,23 @@
 <entityname.waterproofcyberleg>Waterproof Cyberleg</entityname.waterproofcyberleg>
 <entitydescription.waterproofcyberleg>A waterproofed cyberarm made of metal and electronics. Doesn't bleed. Use after amputation to install.</entitydescription.waterproofcyberleg>
 
+
+<entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
+<entitydescription.augmentedliver>A half meat, half machine augmented liver. Improves resistance to poisons, nausea, and boosts immune response. Use after removal of the original liver to install.</entitydescription.augmentedliver>
+<entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
+<entitydescription.augmentedkidney>A half meat, half machine augmented kidney. Improves blood production and filtration, altering blood type to C. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
+<entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
+<entitydescription.augmentedheart>A half meat, half machine augmented heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
+<entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
+<entitydescription.augmentedlung>A half meat, half machine augmented lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
+<entityname.augmentedbrain>Cyber-Augmented Brain</entityname.augmentedbrain>
+<entitydescription.augmentedbrain>A half meat, half machine augmented brain. Improves skills, pain resistance, and  functions and memory. Use after removal of the original brain to install.</entitydescription.augmentedbrain>
+<entityname.cyberliver>Cyberliver</entityname.cyberliver>
+<entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
+<entityname.cyberheart>Cyberheart</entityname.cyberheart>
+<entityname.cyberlung>Cyberlungs</entityname.cyberlung>
+<entityname.cyberbrain>Cyberbrain</entityname.cyberbrain>
+
 <!-- AFFLICTIONS -->
 
 <afflictionname.ntc_cyberlimb></afflictionname.ntc_cyberlimb>

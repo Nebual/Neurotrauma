@@ -112,6 +112,133 @@
     </Effect>
   </Affliction>
 
+  <!-- Cyberorgans -->
+  <Affliction
+    name="Cyberliver"
+    identifier="ntc_cyberliver"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="true"
+    maxstrength="100"
+    showiconthreshold="500"
+    showinhealthscannerthreshold="1"
+    iconcolors="76,102,145,255;76,102,145,255">
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="poison,debuff,nausea" minresistance="0" maxresistance="0.6"></Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600">
+      <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
+        <Conditional immunity="gte 80"/>
+        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+      </StatusEffect>
+    </PeriodicEffect>
+  </Affliction>
+  <Affliction
+    name="Cyberkidney"
+    identifier="ntc_cyberkidney"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="true"
+    maxstrength="100"
+    showiconthreshold="500"
+    showinhealthscannerthreshold="1"
+    iconcolors="76,102,145,255;76,102,145,255">
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="bleeding,bloodloss" minresistance="0" maxresistance="0.6"></Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600">
+      <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
+        <Conditional immunity="gte 80"/>
+        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+      </StatusEffect>
+    </PeriodicEffect>
+  </Affliction>
+  <Affliction
+    name="Cyberlungs"
+    identifier="ntc_cyberlung"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="true"
+    maxstrength="100"
+    showiconthreshold="500"
+    showinhealthscannerthreshold="1"
+    iconcolors="76,102,145,255;76,102,145,255">
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
+        <Affliction identifier="haste" amount="150"/>
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="oxygenlow" minresistance="0" maxresistance="0.6"></Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600">
+      <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
+        <Conditional immunity="gte 80"/>
+        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+      </StatusEffect>
+    </PeriodicEffect>
+  </Affliction>
+  <Affliction
+    name="Cyberheart"
+    identifier="ntc_cyberheart"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="true"
+    maxstrength="100"
+    showiconthreshold="500"
+    showinhealthscannerthreshold="1"
+    iconcolors="76,102,145,255;76,102,145,255">
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="-0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
+        <Affliction identifier="haste" amount="150"/>
+        <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" />
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600">
+      <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
+        <Conditional immunity="gte 80"/>
+        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+      </StatusEffect>
+    </PeriodicEffect>
+  </Affliction>
+  <Affliction
+    name="Cyberbrain"
+    identifier="ntc_cyberbrain"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="true"
+    maxstrength="100"
+    showiconthreshold="500"
+    showinhealthscannerthreshold="1"
+    iconcolors="76,102,145,255;76,102,145,255">
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <Effect minstrength="0" maxstrength="100" strengthchange="-0">
+      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
+        <Conditional ishuman="true" analgesia="lte 5"/>
+        <Affliction identifier="analgesia" amount="1"/>
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600">
+      <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
+        <Conditional immunity="gte 80"/>
+        <Affliction identifier="psychosis" strength="20" probability="0.35" />
+      </StatusEffect>
+    </PeriodicEffect>
+  </Affliction>
+
   <!-- /// cyberlimb damage types /// -->
 
   <!-- Loose screws

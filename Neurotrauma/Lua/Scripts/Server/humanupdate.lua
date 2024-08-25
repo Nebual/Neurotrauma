@@ -336,7 +336,7 @@ NT.Afflictions = {
             (1-math.min(1,c.afflictions.cardiacarrest.strength)) *              -- none if cardiac arrest
             NTC.GetMultiplier(c.character,"bloodpressure")
             
-        local bloodpressurelerp = 0.2
+        local bloodpressurelerp = 0.2 * NTC.GetMultiplier(c.character,"bloodpressurerate")
         -- adjust three times slower to heightened blood pressure
         if(desiredbloodpressure>c.afflictions.bloodpressure.strength) then bloodpressurelerp = bloodpressurelerp/3 end
         c.afflictions.bloodpressure.strength = HF.Clamp(HF.Round(
