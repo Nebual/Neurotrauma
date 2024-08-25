@@ -128,10 +128,10 @@
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="poison,debuff,nausea" minresistance="0" maxresistance="0.6"></Effect>
-    <PeriodicEffect mininterval="300" maxinterval="600">
+    <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
         <Conditional immunity="gte 80"/>
-        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+        <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
   </Affliction>
@@ -149,14 +149,27 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
-    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="bleeding,bloodloss" minresistance="0" maxresistance="0.6"></Effect>
-    <PeriodicEffect mininterval="300" maxinterval="600">
+    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="bleeding,bloodloss" minresistance="0" maxresistance="0.6">
+      <StatusEffect target="Character" disabledeltatime="true" setvalue="true">
+        <Affliction identifier="ominus" amount="0"/>
+        <Affliction identifier="oplus" amount="0"/>
+        <Affliction identifier="aminus" amount="0"/>
+        <Affliction identifier="aplus" amount="0"/>
+        <Affliction identifier="bminus" amount="0"/>
+        <Affliction identifier="bplus" amount="0"/>
+        <Affliction identifier="abminus" amount="0"/>
+        <Affliction identifier="abplus" amount="0"/>
+        <Affliction identifier="abcplus" amount="100"/> <!-- Cyberblood -->
+      </StatusEffect>
+    </Effect>
+    <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
         <Conditional immunity="gte 80"/>
-        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+        <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
   </Affliction>
+
   <Affliction
     name="Cyberlungs"
     identifier="ntc_cyberlung"
@@ -171,16 +184,16 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
-    <Effect minstrength="0" maxstrength="100" strengthchange="0">
-      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
+    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="oxygenlow" minresistance="0" maxresistance="0.6">
+      <StatValue stattype="HoldBreathMultiplier" minvalue="1" maxvalue="0.5" />
+      <StatusEffect target="Character" disabledeltatime="true" duration="0">
         <Affliction identifier="haste" amount="150"/>
       </StatusEffect>
     </Effect>
-    <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="oxygenlow" minresistance="0" maxresistance="0.6"></Effect>
-    <PeriodicEffect mininterval="300" maxinterval="600">
+    <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
         <Conditional immunity="gte 80"/>
-        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+        <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
   </Affliction>
@@ -198,16 +211,18 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
-    <Effect minstrength="0" maxstrength="100" strengthchange="-0">
-      <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
+    <Effect minstrength="0" maxstrength="100" strengthchange="0">
+      <StatusEffect target="Character" disabledeltatime="true" duration="0">
         <Affliction identifier="haste" amount="150"/>
+      </StatusEffect>
+      <StatusEffect target="Character" disabledeltatime="true">
         <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" />
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="300" maxinterval="600">
+    <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
         <Conditional immunity="gte 80"/>
-        <Affliction identifier="psychosis" strength="20" probability="0.25" />
+        <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
   </Affliction>
@@ -225,18 +240,44 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
-    <Effect minstrength="0" maxstrength="100" strengthchange="-0">
+    <!-- <Effect minstrength="0" maxstrength="1" strengthchange="0"> -->
+      <!-- <StatusEffect target="character">
+        <GiveTalentInfo talentidentifiers="mindelectric" />
+      </StatusEffect> -->
+    <!-- </Effect> -->
+    <Effect minstrength="0" maxstrength="100" strengthchange="0">
+      <StatValue stattype="ElectricalSkillBonus" minvalue="0" maxvalue="10" />
+      <StatValue stattype="HelmSkillBonus" minvalue="0" maxvalue="10" />
+      <StatValue stattype="MechanicalSkillBonus" minvalue="0" maxvalue="10" />
+      <StatValue stattype="MedicalSkillBonus" minvalue="0" maxvalue="10" />
+      <StatValue stattype="WeaponsSkillBonus" minvalue="0" maxvalue="10" />
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
         <Conditional ishuman="true" analgesia="lte 5"/>
         <Affliction identifier="analgesia" amount="1"/>
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="300" maxinterval="600">
+    <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
         <Conditional immunity="gte 80"/>
-        <Affliction identifier="psychosis" strength="20" probability="0.35" />
+        <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.35" />
       </StatusEffect>
     </PeriodicEffect>
+  </Affliction>
+
+
+  <Affliction
+    name="C+"
+    identifier="abcplus"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="false"
+    showinhealthscannerthreshold="3"
+    showiconthreshold="3"
+    maxstrength="1">
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
 
   <!-- /// cyberlimb damage types /// -->

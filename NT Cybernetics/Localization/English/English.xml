@@ -19,18 +19,29 @@
 <entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
 <entitydescription.augmentedliver>A half meat, half machine augmented liver. Improves resistance to poisons, nausea, and boosts immune response. Use after removal of the original liver to install.</entitydescription.augmentedliver>
 <entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
-<entitydescription.augmentedkidney>A half meat, half machine augmented kidney. Improves blood production and filtration, altering blood type to C. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
+<entitydescription.augmentedkidney>A half meat, half machine augmented kidney. Improves blood production and filtration, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
 <entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
 <entitydescription.augmentedheart>A half meat, half machine augmented heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
 <entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
 <entitydescription.augmentedlung>A half meat, half machine augmented lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
 <entityname.augmentedbrain>Cyber-Augmented Brain</entityname.augmentedbrain>
-<entitydescription.augmentedbrain>A half meat, half machine augmented brain. Improves skills, pain resistance, and  functions and memory. Use after removal of the original brain to install.</entitydescription.augmentedbrain>
+<entitydescription.augmentedbrain>A half meat, half machine augmented brain. Improves skills, pain resistance, and removes the need for analgesia in surgery. Use after removal of the original brain to install.</entitydescription.augmentedbrain>
 <entityname.cyberliver>Cyberliver</entityname.cyberliver>
+<entitydescription.cyberliver>An artificial super liver. Use after removal of patient's liver.</entitydescription.cyberliver>
 <entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
+<entitydescription.cyberkidney>An artificial super kidney. Use after removal of patient's kidney.</entitydescription.cyberkidney>
 <entityname.cyberheart>Cyberheart</entityname.cyberheart>
+<entitydescription.cyberheart>An artificial super heart. Use after removal of patient's heart.</entitydescription.cyberheart>
 <entityname.cyberlung>Cyberlungs</entityname.cyberlung>
+<entitydescription.cyberlung>Artificial super lungs. Use after removal of patient's lungs.</entitydescription.cyberlung>
 <entityname.cyberbrain>Cyberbrain</entityname.cyberbrain>
+<entitydescription.cyberbrain>An artificial super brain. Use after removal of patient's brain.</entitydescription.cyberbrain>
+
+<entityname.bloodpackabcplus>Blood Pack C+</entityname.bloodpackabcplus>
+<entitydescription.bloodpackabcplus>Administerable to: C+</entitydescription.bloodpackabcplus>
+<entityname.abcpluscard>Donor card C+</entityname.abcpluscard>
+<entitydescription.abcpluscard>Can take blood from: all of them
+Can give blood to: C+</entitydescription.abcpluscard>
 
 <!-- AFFLICTIONS -->
 

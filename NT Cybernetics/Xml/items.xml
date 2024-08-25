@@ -145,7 +145,7 @@
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/InGameItemIconAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
     <Body width="39" height="18" density="10"/>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -193,7 +193,7 @@
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/InGameItemIconAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="20" density="10"/>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -241,7 +241,7 @@
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/InGameItemIconAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
     <Body width="30" height="30" density="10"/>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -289,7 +289,7 @@
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/InGameItemIconAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="fabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -333,11 +333,59 @@
     <SuitableTreatment identifier="heartremoved" suitability="90"/>
   </Item>
 
+  <Item name="" identifier="augmentedbrain" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
+    <Price baseprice="2000" soldbydefault="false">
+      <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
+    </Price>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="272,480,78,60" depth="0.6" origin="0.5,0.5"/>
+    <Body width="14" height="22" density="10"/>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="mechanical" level="70" />
+      <RequiredSkill identifier="medical" level="60" />
+      <RequiredItem identifier="braintransplant" />
+      <RequiredItem identifier="fulgurium" amount="2" />
+      <RequiredItem identifier="fpgacircuit" amount="2" />
+      <RequiredItem identifier="stabilozine" amount="1" />
+    </Fabricate>
+    <Deconstruct time="30">
+      <Item identifier="fulgurium" amount="2" />
+      <Item identifier="fpgacircuit" amount="2" />
+    </Deconstruct>
+    <Throwable characterusable="true" slots="Any,RightHand,LeftHand"
+               throwforce="4.0" aimpos="35,-10" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnImpact" target="This" Condition="0.0" setvalue="true">
+        <Explosion range="0.0" structuredamage="0" itemdamage="0" force="0.0" severlimbsprobability="0.0" decal="fruitsplatter1" decalsize="1.0" />
+        <ParticleEmitter particle="whitegoosplash" anglemin="0" anglemax="360" particleamount="2" velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
+        <ParticleEmitter particle="fruitchunks" anglemin="0" anglemax="360" particleamount="10" velocitymin="200" velocitymax="300" scalemin="0.4" scalemax="0.8" />
+        <Remove />
+      </StatusEffect>
+      <!-- making the organ go kaputt if left outside of refrigeration -->
+      <StatusEffect type="Always" target="This" condition="-0.125">
+        <Conditional hastag="neq refrigerated" targetcontainer="true" />
+      </StatusEffect>
+      <StatusEffect type="OnContained" target="This" condition="0.05" comparison="and">
+        <Conditional condition="gte 80" />
+        <Conditional hastag="refrigerated" targetcontainer="true" />
+      </StatusEffect>
+      <StatusEffect type="OnFire" target="This" Condition="-25.0" />
+      <!-- yuck! organs on the floor! -->
+      <StatusEffect type="OnNotContained" target="NearbyCharacters" range="300">
+        <Affliction identifier="nausea" amount="0.2"/>
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <LuaHook name="NT.RotOrgan" />
+      </StatusEffect>
+    </Throwable>
+    <SkillRequirementHint identifier="medical" level="60"/>
+    <SkillRequirementHint identifier="mechanical" level="80" />
+    <SuitableTreatment identifier="brainremoved" suitability="90"/>
+  </Item>
+
   <Item name="" identifier="cyberheart" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
     <Price baseprice="4000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/InGameItemIconAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5" color="255,215,0,128" />
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="mechanical" level="90" />
@@ -358,6 +406,25 @@
     <SkillRequirementHint identifier="medical" level="50"/>
     <SkillRequirementHint identifier="mechanical" level="80" />
     <SuitableTreatment identifier="heartremoved" suitability="100"/>
+  </Item>
+
+
+  <Item name="" identifier="bloodpackabcplus" nameidentifier="bloodpackabcplus" variantof="antibloodloss2">
+    <PreferredContainer primary="medcab" minamount="0" maxamount="0" notcampaign="true"/>
+    <PreferredContainer secondary="outpostmedcompartment,outpostmedcab" minamount="0" maxamount="0" spawnprobability="0"/>
+    <PreferredContainer secondary="wreckmedcab,abandonedmedcab" minamount="0" maxamount="0" spawnprobability="0" />
+    <PreferredContainer secondary="medcontainer"/>
+    <Price baseprice="90">
+      <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="5"/>
+    </Price>
+  </Item>
+  <Item name="" identifier="abcpluscard" category="Equipment" description=""
+        Tags="smallitem,donorCard" cargocontaineridentifier="metalcrate">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="192,64,64,64" origin="0.5,0.5"/>
+    <Sprite texture="Content/Items/idcard.png" depth="0.8" sourcerect="0,0,16,16"/>
+    <Body width="16" height="12" density="20"/>
+    <Holdable slots="Any" msg="ItemMsgPickUpSelect"/>
+    <Deconstruct/>
   </Item>
   
   <!-- SFX items -->
