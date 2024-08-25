@@ -112,7 +112,9 @@
     </Effect>
   </Affliction>
 
-  <!-- Cyberorgans -->
+  <!--
+    Cyberorgans
+  -->
   <Affliction
     name="Cyberliver"
     identifier="ntc_cyberliver"
@@ -127,6 +129,7 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <!-- Poison, Toxin, Nausea resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="poison,debuff,nausea" minresistance="0" maxresistance="0.6"></Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
@@ -149,6 +152,7 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <!-- Bleeding & Bloodloss resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="bleeding,bloodloss" minresistance="0" maxresistance="0.6">
       <StatusEffect target="Character" disabledeltatime="true" setvalue="true">
         <Affliction identifier="ominus" amount="0"/>
@@ -159,7 +163,7 @@
         <Affliction identifier="bplus" amount="0"/>
         <Affliction identifier="abminus" amount="0"/>
         <Affliction identifier="abplus" amount="0"/>
-        <Affliction identifier="abcplus" amount="100"/> <!-- Cyberblood -->
+        <Affliction identifier="abcplus" amount="100"/> <!-- Cyberblood, fun for selfish compatibility, and prevents Cyberorgan rejection -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
@@ -169,7 +173,6 @@
       </StatusEffect>
     </PeriodicEffect>
   </Affliction>
-
   <Affliction
     name="Cyberlungs"
     identifier="ntc_cyberlung"
@@ -184,10 +187,12 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <!-- in humanupdate.lua lungs also grant reduced pneumothoraxchance and hypoxemia -->
+    <!-- Oxygen low resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="oxygenlow" minresistance="0" maxresistance="0.6">
       <StatValue stattype="HoldBreathMultiplier" minvalue="1" maxvalue="0.5" />
       <StatusEffect target="Character" disabledeltatime="true" duration="0">
-        <Affliction identifier="haste" amount="150"/>
+        <Affliction identifier="haste" amount="150"/> <!-- Faster movement/attack -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
@@ -196,6 +201,7 @@
         <Affliction identifier="psychosis" minstrength="0" maxstrength="40" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
+    <!-- todo: cyberlung's granting pressure resistance (not immunity, just extra time) would be cool if possible. Maybe via lua patching the pressure explode timer's getter which is private... -->
   </Affliction>
   <Affliction
     name="Cyberheart"
@@ -211,12 +217,13 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
+    <!-- in humanupdate.lua heart also grants better bloodpressurerate -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0">
       <StatusEffect target="Character" disabledeltatime="true" duration="0">
-        <Affliction identifier="haste" amount="150"/>
+        <Affliction identifier="haste" amount="150"/> <!-- Faster movement/attack -->
       </StatusEffect>
       <StatusEffect target="Character" disabledeltatime="true">
-        <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" />
+        <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" /> <!-- More Vitality -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
@@ -240,12 +247,8 @@
     showinhealthscannerthreshold="1"
     iconcolors="76,102,145,255;76,102,145,255">
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
-    <!-- <Effect minstrength="0" maxstrength="1" strengthchange="0"> -->
-      <!-- <StatusEffect target="character">
-        <GiveTalentInfo talentidentifiers="mindelectric" />
-      </StatusEffect> -->
-    <!-- </Effect> -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0">
+      <!-- Stat buffs -->
       <StatValue stattype="ElectricalSkillBonus" minvalue="0" maxvalue="10" />
       <StatValue stattype="HelmSkillBonus" minvalue="0" maxvalue="10" />
       <StatValue stattype="MechanicalSkillBonus" minvalue="0" maxvalue="10" />
@@ -253,7 +256,7 @@
       <StatValue stattype="WeaponsSkillBonus" minvalue="0" maxvalue="10" />
       <StatusEffect target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true" comparison="and">
         <Conditional ishuman="true" analgesia="lte 5"/>
-        <Affliction identifier="analgesia" amount="1"/>
+        <Affliction identifier="analgesia" amount="1"/> <!-- Little bit of anaesthetic for easier surgery -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->

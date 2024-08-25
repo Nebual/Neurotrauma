@@ -93,8 +93,6 @@ function NTCyb.UpdateHuman(character)
     end
     if HF.HasAfflictionLimb(character, "ntc_cyberkidney", LimbType.Torso, 1) then
         NTC.SetMultiplier(character, "kidneydamagegain", 1 - HF.GetAfflictionStrengthLimb(character, LimbType.Torso, "ntc_cyberkidney", 0) / 200) -- 0.25 (augmented) or 0.5 (cybernetic)
-        -- NTC.SetMultiplier(character, "clottingrate", 1 + HF.GetAfflictionStrengthLimb(character, LimbType.Torso, "ntc_cyberkidney", 0) / 200) -- 0.25 (augmented) or 0.5 (cybernetic)
-
     end
     if HF.HasAfflictionLimb(character, "ntc_cyberlung", LimbType.Torso, 1) then
         NTC.SetMultiplier(character, "lungdamagegain", 1 - HF.GetAfflictionStrengthLimb(character, LimbType.Torso, "ntc_cyberlung", 0) / 200) -- 0.25 (augmented) or 0.5 (cybernetic)

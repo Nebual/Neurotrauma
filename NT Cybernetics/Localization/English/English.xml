@@ -17,25 +17,27 @@
 
 
 <entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
-<entitydescription.augmentedliver>A half meat, half machine augmented liver. Improves resistance to poisons, nausea, and boosts immune response. Use after removal of the original liver to install.</entitydescription.augmentedliver>
+<entitydescription.augmentedliver>A partially synthetic liver. An improved blood filtration system capable of removing toxins and improving the immune system, ready for reinsertion. </entitydescription.augmentedliver>
 <entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
 <entitydescription.augmentedkidney>A half meat, half machine augmented kidney. Improves blood production and filtration, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
 <entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
 <entitydescription.augmentedheart>A half meat, half machine augmented heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
 <entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
-<entitydescription.augmentedlung>A half meat, half machine augmented lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
-<entityname.augmentedbrain>Cyber-Augmented Brain</entityname.augmentedbrain>
-<entitydescription.augmentedbrain>A half meat, half machine augmented brain. Improves skills, pain resistance, and removes the need for analgesia in surgery. Use after removal of the original brain to install.</entitydescription.augmentedbrain>
+<entitydescription.augmentedlung>Half meat, half machine augmented lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
+<entityname.augmentedbrain>Cyber-Augmented Brain Implant</entityname.augmentedbrain>
+<entitydescription.augmentedbrain>A neuralink implant making brain think more good. Improves skills, pain resistance, and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.augmentedbrain>
+
 <entityname.cyberliver>Cyberliver</entityname.cyberliver>
-<entitydescription.cyberliver>An artificial super liver. Use after removal of patient's liver.</entitydescription.cyberliver>
+<entitydescription.cyberliver>A completely synthetic liver. A top of the line blood filtration system capable of removing toxins and improving the immune system, ready for transplant. </entitydescription.cyberliver>
 <entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
-<entitydescription.cyberkidney>An artificial super kidney. Use after removal of patient's kidney.</entitydescription.cyberkidney>
+<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system necessary for extensive augmentation, ready for transplant. </entitydescription.cyberkidney>
 <entityname.cyberheart>Cyberheart</entityname.cyberheart>
-<entitydescription.cyberheart>An artificial super heart. Use after removal of patient's heart.</entitydescription.cyberheart>
+<entitydescription.cyberheart>A completely synthetic heart. A top of the line circulatory system augment ready for transplant.</entitydescription.cyberheart>
 <entityname.cyberlung>Cyberlungs</entityname.cyberlung>
-<entitydescription.cyberlung>Artificial super lungs. Use after removal of patient's lungs.</entitydescription.cyberlung>
-<entityname.cyberbrain>Cyberbrain</entityname.cyberbrain>
-<entitydescription.cyberbrain>An artificial super brain. Use after removal of patient's brain.</entitydescription.cyberbrain>
+<entitydescription.cyberlung>A completely synthetic set of lungs. A top of the line respiratory system augment ready for transplant.</entitydescription.cyberlung>
+<entityname.cyberbrain>Superdense Neural Cluster</entityname.cyberbrain>
+<entitydescription.cyberbrain>A positronic cyberbrain implant chipset. Top of the line, supercharges skills and removes the pain response as an unnecessary processing impediment. Synergizes with other existing augments to offer a performance boost. Install into the patient's brain.</entitydescription.cyberbrain>
+
 
 <entityname.bloodpackabcplus>Blood Pack C+</entityname.bloodpackabcplus>
 <entitydescription.bloodpackabcplus>Administerable to: C+</entitydescription.bloodpackabcplus>
