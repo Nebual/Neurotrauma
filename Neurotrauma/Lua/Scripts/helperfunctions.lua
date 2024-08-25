@@ -458,6 +458,14 @@ function HF.GiveSkill(character,skilltype,amount)
     end
 end
 
+function HF.GiveSurgerySkill(character, amount)
+    if NTSP ~= nil and NTConfig.Get("NTSP_enableSurgerySkill",true) then
+        HF.GiveSkill(character,"surgery",amount)
+    else
+        HF.GiveSkill(character,"medical",amount/4)
+    end
+end
+
 -- amount = vitality healed
 function HF.GiveSkillScaled(character,skilltype,amount)
     if character ~= nil and character.Info ~= nil then
