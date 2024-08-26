@@ -155,6 +155,7 @@
     <!-- Bleeding & Bloodloss resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="bleeding,bloodloss" minresistance="0" maxresistance="0.6">
       <StatusEffect target="Character" disabledeltatime="true" setvalue="true">
+        <Affliction identifier="abcplus" amount="100"/> <!-- Cyberblood, fun for selfish compatibility, and prevents Cyberorgan rejection -->
         <Affliction identifier="ominus" amount="0"/>
         <Affliction identifier="oplus" amount="0"/>
         <Affliction identifier="aminus" amount="0"/>
@@ -163,7 +164,6 @@
         <Affliction identifier="bplus" amount="0"/>
         <Affliction identifier="abminus" amount="0"/>
         <Affliction identifier="abplus" amount="0"/>
-        <Affliction identifier="abcplus" amount="100"/> <!-- Cyberblood, fun for selfish compatibility, and prevents Cyberorgan rejection -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
@@ -191,8 +191,8 @@
     <!-- Oxygen low resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="oxygenlow" minresistance="0" maxresistance="0.6">
       <StatValue stattype="HoldBreathMultiplier" minvalue="1" maxvalue="0.5" />
-      <StatusEffect target="Character" disabledeltatime="true" duration="0">
-        <Affliction identifier="haste" amount="150"/> <!-- Faster movement/attack -->
+      <StatusEffect target="Character" interval="5">
+        <Affliction identifier="haste" minamount="0" maxamount="3"/> <!-- Faster movement/attack -->
       </StatusEffect>
     </Effect>
     <PeriodicEffect mininterval="300" maxinterval="600"> <!-- Cyberpsychosis -->
@@ -219,8 +219,8 @@
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
     <!-- in humanupdate.lua heart also grants better bloodpressurerate -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0">
-      <StatusEffect target="Character" disabledeltatime="true" duration="0">
-        <Affliction identifier="haste" amount="150"/> <!-- Faster movement/attack -->
+      <StatusEffect target="Character" interval="5">
+        <Affliction identifier="haste" minamount="0" maxamount="5"/> <!-- Faster movement/attack -->
       </StatusEffect>
       <StatusEffect target="Character" disabledeltatime="true">
         <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" /> <!-- More Vitality -->

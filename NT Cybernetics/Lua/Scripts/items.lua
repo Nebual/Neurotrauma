@@ -71,7 +71,7 @@ local organConfigDatas = {
         cyberAffliction = "ntc_cyberheart",
         secondarySkillName = "mechanical",
         surgerySkillRemoval = 60,
-        curedAfflictions = {"tamponade", "heartattack"},
+        curedAfflictions = {"tamponade", "heartattack", "t_arterialcut"},
         tier2Item = "augmentedheart",
         tier3Item = "cyberheart",
         baseMethod = NT.ItemMethods.organscalpel_heart
@@ -292,31 +292,33 @@ end
 NTCyb.ItemStartsWithMethods.screwdriver = function(item, usingCharacter, targetCharacter, limb) 
     local limbtype = limb.type
 
-    if limbtype == LimbType.Torso then
-        -- fix up minor cyber-organ damage
-        for organ, organConfig in ipairs(organConfigDatas) do
-            -- todo: allow full repairing organs in fab, and then limit the screwdriver to only minor repairs
-            if HF.HasAfflictionLimb(targetCharacter, "ntc_cyber" .. organ,1) and HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_cyber" .. organ,0) < 100 and HF.HasAfflictionLimb(targetCharacter,"retractedskin",limbtype,99) then
-                if HF.GetSkillRequirementMet(usingCharacter,organConfig.secondarySkillName,50) then
-                    damageOrgan(targetCharacter, organ, -20, usingCharacter) -- heal "liverdamage"
-                    HF.GiveSkill(usingCharacter,organConfig.secondarySkillName,0.125)
-                else
-                    damageOrgan(targetCharacter, organ, -5, usingCharacter)
-                end
-                HF.GiveItem(targetCharacter,"ntcsfx_screwdriver")
-
-                -- possibly damage surroundings if not medically skilled
-                if HF.GetSurgerySkillRequirementMet(usingCharacter,50) then
-                    HF.GiveSurgerySkill(usingCharacter,0.25)
-                else
-                    HF.AddAfflictionLimb(targetCharacter,"internalbleeding",LimbType.Torso,HF.RandomRange(0,10))
-                    HF.GiveItem(targetCharacter,"ntsfx_slash")
-                end
-                return -- one organ at a time
+    -- fix up minor cyber-organ damage
+    for organ, organConfig in pairs(organConfigDatas) do
+        -- todo: allow full repairing organs in fab, and then limit the screwdriver to only minor repairs
+        if limbtype == organConfig.limb
+            and HF.HasAfflictionLimb(targetCharacter, "ntc_cyber" .. organ,1)
+            and HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_cyber" .. organ,0) < 100
+            and HF.HasAfflictionLimb(targetCharacter,"retractedskin",limbtype,99)
+        then
+            if HF.GetSkillRequirementMet(usingCharacter,organConfig.secondarySkillName,50) then
+                damageOrgan(targetCharacter, organ, -20, usingCharacter) -- heal "liverdamage"
+                HF.GiveSkill(usingCharacter,organConfig.secondarySkillName,0.125)
+            else
+                damageOrgan(targetCharacter, organ, -5, usingCharacter)
             end
+            HF.GiveItem(targetCharacter,"ntcsfx_screwdriver")
+
+            -- possibly damage surroundings if not medically skilled
+            if HF.GetSurgerySkillRequirementMet(usingCharacter,50) then
+                HF.GiveSurgerySkill(usingCharacter,0.25)
+            else
+                HF.AddAfflictionLimb(targetCharacter,"internalbleeding",limbtype,HF.RandomRange(0,10))
+                HF.GiveItem(targetCharacter,"ntsfx_slash")
+            end
+            return -- one organ at a time
         end
-        return
     end
+
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     if HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_loosescrews",0) < 0.1 then return end
 
@@ -339,7 +341,7 @@ end
 
 local function implantOrgan(item, usingCharacter, targetCharacter, limb)
     local organName
-    for organ, _ in ipairs(organConfigDatas) do
+    for organ, _ in pairs(organConfigDatas) do
         if string.find(item.Prefab.Identifier.Value, organ) then
             organName = organ
             break
@@ -423,7 +425,7 @@ Timer.Wait(function()
 
     local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb)
         local organConfig
-        for organ, data in ipairs(organConfigDatas) do
+        for organ, data in pairs(organConfigDatas) do
             if string.find(item.Prefab.Identifier.Value, organ) then
                 organConfig = data
                 break
@@ -454,7 +456,7 @@ Timer.Wait(function()
                 end
 
                 HF.AddAffliction(targetCharacter,"organdamage",(100-damage)/5,usingCharacter)
-                if HF.HasAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,99) || organConfig.cyberAffliction == "ntc_cyberbrain" then
+                if HF.HasAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,99) or organConfig.cyberAffliction == "ntc_cyberbrain" then
                     -- cybernetic + brain chips
                     local function postSpawnFunc(args)
                         args.item.Condition = args.condition
@@ -507,7 +509,7 @@ Timer.Wait(function()
     NT.ItemMethods.organscalpel_heart = removeCyberOrgan
     NT.ItemMethods.organscalpel_brain = removeCyberOrgan
 
-    table.insert(NT.BLOODTYPE, {"c", 0}) -- cybernetic blood
+    table.insert(NT.BLOODTYPE, {"abcplus", 0}) -- cybernetic blood
 
     local supersoldiersTalent = TalentPrefab.TalentPrefabs["supersoldiers"]
     if supersoldiersTalent ~= nil then
