@@ -529,6 +529,6 @@ Timer.Wait(function()
     end
 
     if NTP ~= nil and NTP.PillData ~= nil then
-        NTP.PillData.items.bloodpackabcplus={variantof="antibloodloss2"}
+        NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
     end
 end, 500)
