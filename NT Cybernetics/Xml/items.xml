@@ -141,11 +141,11 @@
     <SkillRequirementHint identifier="mechanical" level="70" />
   </Item>
 
-  <Item name="" identifier="augmentedliver" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
+  <Item name="" identifier="augmentedliver" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ" spritecolor="160,255,255,255" inventoryiconcolor="160,255,255,255">
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
     <Body width="39" height="18" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -188,11 +188,11 @@
     <SkillRequirementHint identifier="mechanical" level="60" />
     <SuitableTreatment identifier="liverremoved" suitability="90"/>
   </Item>
-  <Item name="" identifier="cyberliver" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="cyberliver" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="60,255,255,255" inventoryiconcolor="60,255,255,255">
     <Price baseprice="4000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="5,479,79,52" depth="0.6" origin="0.5,0.5"/>
     <Body width="39" height="18" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="mechanical" level="90" />
@@ -215,11 +215,11 @@
     <SuitableTreatment identifier="liverremoved" suitability="100"/>
   </Item>
 
-  <Item name="" identifier="augmentedkidney" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
+  <Item name="" identifier="augmentedkidney" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ" spritecolor="160,255,255,255" inventoryiconcolor="160,255,255,255">
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="20" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -262,11 +262,11 @@
     <SkillRequirementHint identifier="mechanical" level="60" />
     <SuitableTreatment identifier="kidneyremoved" suitability="90"/>
   </Item>
-  <Item name="" identifier="cyberkidney" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="cyberkidney" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="60,255,255,255" inventoryiconcolor="60,255,255,255">
     <Price baseprice="4000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="193,481,32,47" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="20" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="mechanical" level="90" />
@@ -289,11 +289,11 @@
     <SuitableTreatment identifier="kidneyremoved" suitability="100"/>
   </Item>
 
-  <Item name="" identifier="augmentedlung" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
+  <Item name="" identifier="augmentedlung" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ" spritecolor="160,255,255,255" inventoryiconcolor="160,255,255,255">
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
     <Body width="30" height="30" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -336,11 +336,11 @@
     <SkillRequirementHint identifier="mechanical" level="60" />
     <SuitableTreatment identifier="lungremoved" suitability="90"/>
   </Item>
-  <Item name="" identifier="cyberlung" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="cyberlung" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="60,255,255,255" inventoryiconcolor="60,255,255,255">
     <Price baseprice="4000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="91,480,84,84" depth="0.6" origin="0.5,0.5"/>
     <Body width="30" height="30" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="mechanical" level="90" />
@@ -363,11 +363,11 @@
     <SuitableTreatment identifier="lungremoved" suitability="100"/>
   </Item>
 
-  <Item name="" identifier="augmentedheart" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ">
+  <Item name="" identifier="augmentedheart" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_soft" cargocontaineridentifier="organcrate" impacttolerance="5.5" Tags="smallitem,organ" spritecolor="160,255,255,255" inventoryiconcolor="160,255,255,255">
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="20">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -410,11 +410,11 @@
     <SkillRequirementHint identifier="mechanical" level="60" />
     <SuitableTreatment identifier="heartremoved" suitability="90"/>
   </Item>
-  <Item name="" identifier="cyberheart" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="cyberheart" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="60,255,255,255" inventoryiconcolor="60,255,255,255">
     <Price baseprice="4000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5" color="255,215,0,128" />
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="238,479,28,54" depth="0.6" origin="0.5,0.5" />
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="mechanical" level="90" />
@@ -437,11 +437,11 @@
     <SuitableTreatment identifier="heartremoved" suitability="100"/>
   </Item>
 
-  <Item name="" identifier="augmentedbrain" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="augmentedbrain" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="160,255,255,255" inventoryiconcolor="160,255,255,255">
     <Price baseprice="2000" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="272,480,78,60" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="272,480,78,60" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60">
       <RequiredSkill identifier="medical" level="60" />
@@ -460,11 +460,11 @@
     <SkillRequirementHint identifier="medical" level="80"/>
     <SkillRequirementHint identifier="electrical" level="60" />
   </Item>
-  <Item name="" identifier="cyberbrain" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ">
+  <Item name="" identifier="cyberbrain" description="" category="Medical" scale="0.4" useinhealthinterface="True" impactsoundtag="impact_metal_light" cargocontaineridentifier="organcrate" Tags="smallitem,organ" spritecolor="60,255,255,255" inventoryiconcolor="60,255,255,255">
     <Price baseprice="4500" soldbydefault="false">
       <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="1"/>
     </Price>
-    <Sprite texture="%ModDir%/Images/OrganAtlas.png" sourcerect="272,480,78,60" depth="0.6" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir:3190189044%/Images/InGameItemIconAtlas.png" sourcerect="272,480,78,60" depth="0.6" origin="0.5,0.5"/>
     <Body width="14" height="22" density="10"/>
     <Fabricate suitablefabricators="medicalfabricator" requiredtime="60" requiresrecipe="true">
       <RequiredSkill identifier="medical" level="100" />

@@ -56,6 +56,9 @@ Can give blood to: C+</entitydescription.abcpluscard>
 <afflictionname.ntc_cyberleg>Cyberleg</afflictionname.ntc_cyberleg>
 <afflictiondescription.ntc_cyberleg>The leg is made of metal and electronics</afflictiondescription.ntc_cyberleg>
 
+<afflictionname.ntc_cyberlung_pressure_recovery>Weakened Cyberlung</afflictionname.ntc_cyberlung_pressure_recovery>
+<afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung has resisted severe pressure, and is undertaking self-repair routines.</afflictiondescription.ntc_cyberlung_pressure_recovery>
+
 
 <afflictionname.ntc_loosescrews>Loose screws</afflictionname.ntc_loosescrews>
 <afflictiondescription.ntc_loosescrews>Some screws look dangerously close to falling out. Rattling can be heard when moving the limb.</afflictiondescription.ntc_loosescrews>

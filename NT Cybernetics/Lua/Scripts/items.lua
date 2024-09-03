@@ -59,7 +59,7 @@ local organConfigDatas = {
         cyberAffliction = "ntc_cyberlung",
         secondarySkillName = "mechanical",
         surgerySkillRemoval = 50,
-        curedAfflictions = {"pneumothorax", "needlec"},
+        curedAfflictions = {"pneumothorax", "needlec", "respiratoryarrest", "hyperventilation", "hypoventilation"},
         tier2Item = "augmentedlung",
         tier3Item = "cyberlung",
         baseMethod = NT.ItemMethods.organscalpel_lungs
@@ -71,7 +71,7 @@ local organConfigDatas = {
         cyberAffliction = "ntc_cyberheart",
         secondarySkillName = "mechanical",
         surgerySkillRemoval = 60,
-        curedAfflictions = {"tamponade", "heartattack", "t_arterialcut"},
+        curedAfflictions = {"tamponade", "heartattack", "cardiacarrest", "fibrillation", "tachycardia", "t_arterialcut"},
         tier2Item = "augmentedheart",
         tier3Item = "cyberheart",
         baseMethod = NT.ItemMethods.organscalpel_heart
@@ -79,7 +79,7 @@ local organConfigDatas = {
     brain = {
         limb = LimbType.Head,
         damageAffliction = "cerebralhypoxia",
-        removedAffliction = "",
+        removedAffliction = nil,
         cyberAffliction = "ntc_cyberbrain",
         secondarySkillName = "electrical",
         surgerySkillRemoval = 70,
@@ -296,8 +296,8 @@ NTCyb.ItemStartsWithMethods.screwdriver = function(item, usingCharacter, targetC
     for organ, organConfig in pairs(organConfigDatas) do
         -- todo: allow full repairing organs in fab, and then limit the screwdriver to only minor repairs
         if limbtype == organConfig.limb
-            and HF.HasAfflictionLimb(targetCharacter, "ntc_cyber" .. organ,1)
-            and HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_cyber" .. organ,0) < 100
+            and HF.HasAffliction(targetCharacter, "ntc_cyber" .. organ, 1)
+            and HF.HasAffliction(targetCharacter,organConfig.damageAffliction,1)
             and HF.HasAfflictionLimb(targetCharacter,"retractedskin",limbtype,99)
         then
             if HF.GetSkillRequirementMet(usingCharacter,organConfig.secondarySkillName,50) then
@@ -368,6 +368,9 @@ local function implantOrgan(item, usingCharacter, targetCharacter, limb)
         HF.AddAffliction(targetCharacter,"organdamage",-(workcondition)/5,usingCharacter) -- heal a bit of vanilla organ damage
         HF.SetAffliction(targetCharacter, organName .. "removed",0,usingCharacter) -- clear "liverremoved"
         HF.SetAfflictionLimb(targetCharacter,"ntc_cyber" .. organName,limbtype, string.find(item.Prefab.Identifier.Value, "augmented") and 50 or 100) -- add "ntc_cyberliver", at 50% strength if its Augmented (tier 2), 100% if Cyber (tier 3)
+        for _, affliction in ipairs(organConfigDatas[organName].curedAfflictions) do
+            HF.SetAffliction(targetCharacter,affliction,0,usingCharacter)
+        end
         HF.RemoveItem(item)
 
         possiblyRejectOrgan(targetCharacter, usingCharacter, organName)
@@ -414,6 +417,17 @@ NTCyb.ItemMethods.cyberbrain = implantBrain
 
 Timer.Wait(function()
 
+    if not HF.GiveSurgerySkill then
+        -- BC compatibility with Neurotrauma until this gets merged into main
+        function HF.GiveSurgerySkill(character, amount)
+            if NTSP ~= nil and NTConfig.Get("NTSP_enableSurgerySkill",true) then
+                HF.GiveSkill(character,"surgery",amount)
+            else
+                HF.GiveSkill(character,"medical",amount/4)
+            end
+        end
+    end
+
     local baseSurgerySaw = NT.ItemMethods.surgerysaw
     NT.ItemMethods.surgerysaw = function(item, usingCharacter, targetCharacter, limb)
         local limbtype = HF.NormalizeLimbType(limb.type)
@@ -423,7 +437,7 @@ Timer.Wait(function()
         baseSurgerySaw(item, usingCharacter, targetCharacter, limb)
     end
 
-    local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb)
+    local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb, baseMethod)
         local organConfig
         for organ, data in pairs(organConfigDatas) do
             if string.find(item.Prefab.Identifier.Value, organ) then
@@ -432,7 +446,10 @@ Timer.Wait(function()
             end
         end
         if organConfig == nil then
-            print("NT Cybernetics: Unknown organscalpel " .. tostring(item.Prefab.Identifier.Value))
+            if item.Prefab.Identifier.Value ~= "multiscalpel" then
+                print("NT Cybernetics: Unknown organscalpel " .. tostring(item.Prefab.Identifier.Value))
+            end
+            baseMethod(item, usingCharacter, targetCharacter, limb)
             return
         end
 
@@ -499,17 +516,20 @@ Timer.Wait(function()
             end
 
             HF.GiveItem(targetCharacter,"ntsfx_slash")
-        else
-            organConfig.baseMethod(item, usingCharacter, targetCharacter, limb)
+        elseif not targetCharacter.IsDead then
+            baseMethod(item, usingCharacter, targetCharacter, limb)
         end
     end
-    NT.ItemMethods.organscalpel_kidneys = removeCyberOrgan
-    NT.ItemMethods.organscalpel_liver = removeCyberOrgan
-    NT.ItemMethods.organscalpel_lungs = removeCyberOrgan
-    NT.ItemMethods.organscalpel_heart = removeCyberOrgan
-    NT.ItemMethods.organscalpel_brain = removeCyberOrgan
+    NT.ItemMethods.organscalpel_kidneys = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["kidney"].baseMethod) end
+    NT.ItemMethods.organscalpel_liver = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["liver"].baseMethod) end
+    NT.ItemMethods.organscalpel_lungs = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["lung"].baseMethod) end
+    NT.ItemMethods.organscalpel_heart = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["heart"].baseMethod) end
+    NT.ItemMethods.organscalpel_brain = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["brain"].baseMethod) end
 
     table.insert(NT.BLOODTYPE, {"abcplus", 0}) -- cybernetic blood
+    if NTP ~= nil and NTP.PillData ~= nil then
+        NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
+    end
 
     local supersoldiersTalent = TalentPrefab.TalentPrefabs["supersoldiers"]
     if supersoldiersTalent ~= nil then
@@ -526,9 +546,5 @@ Timer.Wait(function()
         for element in xml.Root.Elements() do
             supersoldiersTalent.ConfigElement.Element.Add(element)
         end
-    end
-
-    if NTP ~= nil and NTP.PillData ~= nil then
-        NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
     end
 end, 500)
