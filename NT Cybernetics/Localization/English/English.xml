@@ -19,24 +19,24 @@
 <entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
 <entitydescription.augmentedliver>A partially synthetic liver. An improved blood filtration system capable of removing toxins and improving the immune system, ready for reinsertion. </entitydescription.augmentedliver>
 <entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
-<entitydescription.augmentedkidney>A half meat, half machine augmented kidney. Improves blood production and filtration, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
+<entitydescription.augmentedkidney>A partially synthetic kidney. Improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
 <entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
-<entitydescription.augmentedheart>A half meat, half machine augmented heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
+<entitydescription.augmentedheart>A partially synthetic heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
 <entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
-<entitydescription.augmentedlung>Half meat, half machine augmented lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
+<entitydescription.augmentedlung>A partially synthetic set of lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
 <entityname.augmentedbrain>Cyber-Augmented Brain Implant</entityname.augmentedbrain>
-<entitydescription.augmentedbrain>A neuralink implant making brain think more good. Improves skills, pain resistance, and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.augmentedbrain>
+<entitydescription.augmentedbrain>A neural augment chip for the brain. Improves skills, and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.augmentedbrain>
 
 <entityname.cyberliver>Cyberliver</entityname.cyberliver>
 <entitydescription.cyberliver>A completely synthetic liver. A top of the line blood filtration system capable of removing toxins and improving the immune system, ready for transplant. </entitydescription.cyberliver>
 <entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
-<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system necessary for extensive augmentation, ready for transplant. </entitydescription.cyberkidney>
+<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system which improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of original kidney to install. </entitydescription.cyberkidney>
 <entityname.cyberheart>Cyberheart</entityname.cyberheart>
-<entitydescription.cyberheart>A completely synthetic heart. A top of the line circulatory system augment ready for transplant.</entitydescription.cyberheart>
+<entitydescription.cyberheart>A completely synthetic heart. A top of the line circulatory system, improving muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.cyberheart>
 <entityname.cyberlung>Cyberlungs</entityname.cyberlung>
-<entitydescription.cyberlung>A completely synthetic set of lungs. A top of the line respiratory system augment ready for transplant.</entitydescription.cyberlung>
-<entityname.cyberbrain>Superdense Neural Cluster</entityname.cyberbrain>
-<entitydescription.cyberbrain>A positronic cyberbrain implant chipset. Top of the line, supercharges skills and removes the pain response as an unnecessary processing impediment. Synergizes with other existing augments to offer a performance boost. Install into the patient's brain.</entitydescription.cyberbrain>
+<entitydescription.cyberlung>A completely synthetic set of lungs. A top of the line respiratory system, improving muscle speed, oxygen capacity, and partial pressure resistance. Use after removal of the original lungs to install.</entitydescription.cyberlung>
+<entityname.cyberbrain>Cyberbrain implant</entityname.cyberbrain>
+<entitydescription.cyberbrain>A positronic cyberbrain implant chipset. Top of the line, supercharges skills and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.cyberbrain>
 
 
 <entityname.bloodpackabcplus>Blood Pack C+</entityname.bloodpackabcplus>
@@ -56,8 +56,9 @@ Can give blood to: C+</entitydescription.abcpluscard>
 <afflictionname.ntc_cyberleg>Cyberleg</afflictionname.ntc_cyberleg>
 <afflictiondescription.ntc_cyberleg>The leg is made of metal and electronics</afflictiondescription.ntc_cyberleg>
 
-<afflictionname.ntc_cyberlung_pressure_recovery>Weakened Cyberlung</afflictionname.ntc_cyberlung_pressure_recovery>
-<afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung has resisted severe pressure, and is undertaking self-repair routines.</afflictiondescription.ntc_cyberlung_pressure_recovery>
+<afflictionname.ntc_cyberlung_pressure_recovery>Pressurized Cyberlung</afflictionname.ntc_cyberlung_pressure_recovery>
+<afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung is resisting severe pressure, briefly preventing implosion.</afflictiondescription.ntc_cyberlung_pressure_recovery>
+<afflictiondescription.ntc_cyberlung_pressure_recovery.low>The Cyberlung has resisted severe pressure, and is undertaking self-repair routines.</afflictiondescription.ntc_cyberlung_pressure_recovery.low>
 
 
 <afflictionname.ntc_loosescrews>Loose screws</afflictionname.ntc_loosescrews>
