@@ -78,12 +78,12 @@ local organConfigDatas = {
     },
     brain = {
         limb = LimbType.Head,
-        damageAffliction = "cerebralhypoxia",
+        damageAffliction = nil,
         removedAffliction = nil,
         cyberAffliction = "ntc_cyberbrain",
         secondarySkillName = "electrical",
         surgerySkillRemoval = 70,
-        curedAfflictions = {"artificialbrain"},
+        curedAfflictions = {},
         tier2Item = "augmentedbrain",
         tier3Item = "cyberbrain",
         baseMethod = NT.ItemMethods.organscalpel_brain
@@ -449,6 +449,42 @@ Timer.Wait(function()
         baseSurgerySaw(item, usingCharacter, targetCharacter, limb)
     end
 
+    -- override surgery tools to work on dead characters, to allow removing cyberorgans postmortem
+    local baseAdvScalpel = NT.ItemMethods.advscalpel
+    NT.ItemMethods.advscalpel = function(item, usingCharacter, targetCharacter, limb)
+        if targetCharacter.IsDead then
+            local limbtype = limb.type
+            print("scalpel limbtype: " .. tostring(limbtype) .. "vs head " .. tostring(LimbType.Head) .. " and " .. tostring(targetCharacter.AnimController.GetLimb(limbtype)))
+            if targetCharacter.AnimController.GetLimb(limbtype) == nil then return end -- can't scalpel a missing head
+            HF.AddAfflictionLimb(targetCharacter,"surgeryincision",limbtype,100,usingCharacter)
+            HF.GiveItem(targetCharacter,"ntsfx_slash")
+            forceSyncAfflictions(targetCharacter)
+        else
+            baseAdvScalpel(item, usingCharacter, targetCharacter, limb)
+        end
+    end
+
+    local baseAdvHemostat = NT.ItemMethods.advhemostat
+    NT.ItemMethods.advhemostat = function(item, usingCharacter, targetCharacter, limb)
+        baseAdvHemostat(item, usingCharacter, targetCharacter, limb)
+        if targetCharacter.IsDead then
+            forceSyncAfflictions(targetCharacter)
+        end
+    end
+    local baseAdvRetractors = NT.ItemMethods.advretractors
+    NT.ItemMethods.advretractors = function(item, usingCharacter, targetCharacter, limb)
+        if targetCharacter.IsDead then
+            local limbtype = limb.type
+            -- can skip clamping bleeders on corpses
+            if((HF.HasAfflictionLimb(targetCharacter,"surgeryincision",limbtype,99) or HF.HasAfflictionLimb(targetCharacter,"clampedbleeders",limbtype,99)) and not HF.HasAfflictionLimb(targetCharacter,"retractedskin",limbtype,1)) then
+                HF.AddAfflictionLimb(targetCharacter,"retractedskin",limbtype,100,usingCharacter)
+                forceSyncAfflictions(targetCharacter)
+            end
+        else
+            baseAdvRetractors(item, usingCharacter, targetCharacter, limb)
+        end
+    end
+
     local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb, baseMethod)
         local organConfig
         for organ, data in pairs(organConfigDatas) do
@@ -478,22 +514,27 @@ Timer.Wait(function()
                 if organConfig.removedAffliction ~= nil then
                     HF.SetAffliction(targetCharacter,organConfig.removedAffliction,100,usingCharacter)
                 end
-                HF.SetAffliction(targetCharacter,organConfig.damageAffliction,100,usingCharacter)
+                if organConfig.damageAffliction ~= nil then
+                    HF.SetAffliction(targetCharacter,organConfig.damageAffliction,100,usingCharacter)
+                end
 
                 for _, affliction in ipairs(organConfig.curedAfflictions) do
-                    HF.SetAffliction(targetCharacter,affliction,0,usingCharacter)
+                    if HF.HasAffliction(targetCharacter,affliction) then
+                        HF.SetAffliction(targetCharacter,affliction,0,usingCharacter)
+                    end
                 end
 
                 HF.AddAffliction(targetCharacter,"organdamage",(100-damage)/5,usingCharacter)
-                if HF.HasAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,99) or organConfig.cyberAffliction == "ntc_cyberbrain" then
-                    -- cybernetic + brain chips
-                    local function postSpawnFunc(args)
-                        args.item.Condition = args.condition
+                if organConfig.cyberAffliction == "ntc_cyberbrain" then
+                    -- tier 2 and 3 brains are both synthetic implants
+                    if HF.HasAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,99) then
+                        HF.GiveItemAtCondition(usingCharacter, organConfig.tier3Item, 100)
+                    else
+                        HF.GiveItemAtCondition(usingCharacter, organConfig.tier2Item, 100)
                     end
-                    local params = {
-                        condition=HF.Clamp(100-damage, 1, 100)
-                    }
-                    HF.GiveItemPlusFunction(organConfig.tier3Item,postSpawnFunc,params,usingCharacter)
+                elseif HF.HasAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,99) then
+                    -- cybernetic
+                    HF.GiveItemAtCondition(usingCharacter, organConfig.tier3Item, HF.Clamp(100-damage, 1, 100))
                 else
                     -- augmented
                     -- add acidosis, alkalosis and sepsis to the bloodpack if the donor has them
@@ -525,6 +566,9 @@ Timer.Wait(function()
                 HF.AddAfflictionLimb(targetCharacter,"bleeding",limbtype,15,usingCharacter)
                 HF.AddAfflictionLimb(targetCharacter,"organdamage",limbtype,5,usingCharacter)
                 HF.AddAffliction(targetCharacter,organConfig.damageAffliction,20,usingCharacter)
+            end
+            if targetCharacter.IsDead then
+                forceSyncAfflictions(targetCharacter)
             end
 
             HF.GiveItem(targetCharacter,"ntsfx_slash")
