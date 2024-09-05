@@ -108,15 +108,18 @@ NTCyb.ItemMethods.fpgacircuit = function(item, usingCharacter, targetCharacter, 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_damagedelectronics",0)
     if limbDamage < 0.1 then return end
-
+    local amountHealed
     if(HF.GetSkillRequirementMet(usingCharacter,"electrical",40)) then
-        HF.AddAfflictionLimb(targetCharacter,"ntc_damagedelectronics",limbtype,-50)
-        item.Condition = item.Condition - math.min(item.Condition, math.min(limbDamage, 50)*2)
+        amountHealed = math.min(limbDamage, 50)
+        item.Condition = item.Condition - math.min(item.Condition, amountHealed*2)
     else
-        HF.AddAfflictionLimb(targetCharacter,"ntc_damagedelectronics",limbtype,-20)
-        item.Condition = item.Condition - math.min(item.Condition, math.min(limbDamage, 20)*4)
+        amountHealed = math.min(limbDamage, 25)
+        item.Condition = item.Condition - math.min(item.Condition, amountHealed*4)
     end
+    HF.AddAfflictionLimb(targetCharacter,"ntc_damagedelectronics",limbtype,-amountHealed)
     forceSyncAfflictions(targetCharacter)
+    HF.GiveSkillScaled(usingCharacter,"electrical", amountHealed*2)
+    HF.GiveSkillScaled(usingCharacter,"medical", amountHealed)
 
     HF.GiveItem(targetCharacter,"ntcsfx_screwdriver")
     if item.Condition <= 0 then
@@ -130,15 +133,19 @@ NTCyb.ItemMethods.steel = function(item, usingCharacter, targetCharacter, limb)
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_materialloss",0)
     if limbDamage < 0.1 then return end
+    local amountHealed
 
     if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",60)) then
-        HF.AddAfflictionLimb(targetCharacter,"ntc_materialloss",limbtype,-50)
-        item.Condition = item.Condition - math.min(item.Condition, math.min(limbDamage, 50)*2)
+        amountHealed = math.min(limbDamage, 50)
+        item.Condition = item.Condition - math.min(item.Condition, amountHealed*2)
     else
-        HF.AddAfflictionLimb(targetCharacter,"ntc_materialloss",limbtype,-20)
-        item.Condition = item.Condition - math.min(item.Condition, math.min(limbDamage, 20)*4)
+        amountHealed = math.min(limbDamage, 25)
+        item.Condition = item.Condition - math.min(item.Condition, amountHealed*4)
     end
+    HF.AddAfflictionLimb(targetCharacter,"ntc_materialloss",limbtype,-amountHealed)
     forceSyncAfflictions(targetCharacter)
+    HF.GiveSkillScaled(usingCharacter,"mechanical", amountHealed*2)
+    HF.GiveSkillScaled(usingCharacter,"medical", amountHealed)
 
     if math.random() < 0.5 then 
         HF.GiveItem(targetCharacter,"ntcsfx_screwdriver") else 
@@ -152,7 +159,8 @@ NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, 
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
-    if HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_bentmetal",0) < 0.1 then return end
+    local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_bentmetal",0)
+    if limbDamage < 0.1 then return end
 
     local containedItem = item.OwnInventory.GetItemAt(0)
     if containedItem==nil then return end
@@ -160,13 +168,17 @@ NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, 
     if not hasFuel then return end
 
     Timer.Wait(function()
+        local amountHealed
         NTCyb.ConvertDamageTypes(targetCharacter,limbtype)
         if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",50)) then
-            HF.AddAfflictionLimb(targetCharacter,"ntc_bentmetal",limbtype,-20)
+            amountHealed = math.min(limbDamage, 20)
         else
-            HF.AddAfflictionLimb(targetCharacter,"ntc_bentmetal",limbtype,-5)
+            amountHealed = math.min(limbDamage, 5)
         end
+        HF.AddAfflictionLimb(targetCharacter,"ntc_bentmetal",limbtype,-amountHealed)
         forceSyncAfflictions(targetCharacter)
+        HF.GiveSkillScaled(usingCharacter,"mechanical", amountHealed*2)
+        HF.GiveSkillScaled(usingCharacter,"medical", amountHealed)
     end,1)
     
 
@@ -277,7 +289,7 @@ NTCyb.ItemMethods.crowbar = function(item, usingCharacter, targetCharacter, limb
         end
         if limbItem ~= nil then
             HF.GiveItem(usingCharacter,limbItem)
-            HF.GiveSkill(usingCharacter,"mechanical",0.125)
+            HF.GiveSkillScaled(usingCharacter,"mechanical",200)
         end
     elseif(HF.GetSkillRequirementMet(usingCharacter,"weapons",50)) then
         HF.AddAfflictionLimb(targetCharacter,"ntc_materialloss",limbtype,20)

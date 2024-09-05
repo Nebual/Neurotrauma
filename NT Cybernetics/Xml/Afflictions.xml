@@ -131,9 +131,9 @@
     <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="7,0" sheetelementsize="128,128" origin="0,0" />
     <!-- Poison, Toxin, Nausea resistance -->
     <Effect minstrength="0" maxstrength="100" strengthchange="0" resistancefor="poison,debuff,nausea" minresistance="0" maxresistance="0.6"></Effect>
-    <PeriodicEffect mininterval="180" maxinterval="600"> <!-- Cyberpsychosis -->
+    <PeriodicEffect mininterval="240" maxinterval="1200"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
-        <Conditional immunity="gte 80"/>
+        <Conditional immunity="gte 90"/>
         <Affliction identifier="psychosis" strength="60" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
@@ -166,9 +166,9 @@
         <Affliction identifier="abplus" amount="0"/>
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="180" maxinterval="600"> <!-- Cyberpsychosis -->
+    <PeriodicEffect mininterval="240" maxinterval="1200"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
-        <Conditional immunity="gte 80"/>
+        <Conditional immunity="gte 90"/>
         <Affliction identifier="psychosis" strength="60" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
@@ -236,9 +236,9 @@
         <Affliction identifier="ntc_cyberlung_pressure_recovery" amount="31" />
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="180" maxinterval="600"> <!-- Cyberpsychosis -->
+    <PeriodicEffect mininterval="240" maxinterval="1200"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
-        <Conditional immunity="gte 80"/>
+        <Conditional immunity="gte 90"/>
         <Affliction identifier="psychosis" strength="60" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
@@ -321,9 +321,9 @@
         <StatValue stattype="MaximumHealthMultiplier" minvalue="0" maxvalue="0.2" /> <!-- More Vitality -->
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="180" maxinterval="600"> <!-- Cyberpsychosis -->
+    <PeriodicEffect mininterval="240" maxinterval="1200"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
-        <Conditional immunity="gte 80"/>
+        <Conditional immunity="gte 90"/>
         <Affliction identifier="psychosis" strength="60" probability="0.25" />
       </StatusEffect>
     </PeriodicEffect>
@@ -354,9 +354,9 @@
         <Affliction identifier="analgesia" amount="1"/> <!-- Little bit of anaesthetic for easier surgery -->
       </StatusEffect>
     </Effect>
-    <PeriodicEffect mininterval="180" maxinterval="600"> <!-- Cyberpsychosis -->
+    <PeriodicEffect mininterval="240" maxinterval="1200"> <!-- Cyberpsychosis -->
       <StatusEffect target="Character" multiplybymaxvitality="true" comparison="and">
-        <Conditional immunity="gte 80"/>
+        <Conditional immunity="gte 90"/>
         <Affliction identifier="psychosis" strength="60" probability="0.35" />
       </StatusEffect>
     </PeriodicEffect>

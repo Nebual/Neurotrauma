@@ -6,6 +6,10 @@ local allowedNecromancyItems = {
 	weldingtool = 1,
 	steel = 1,
 	fpgacircuit = 1,
+	-- tools needed for cyberorgan removal
+	advscalpel = 1,
+	advhemostat = 1,
+	advretractors = 1,
 	organscalpel_kidneys = 1,
 	organscalpel_liver = 1,
 	organscalpel_lungs = 1,

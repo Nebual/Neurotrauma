@@ -23,7 +23,7 @@
 <entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
 <entitydescription.augmentedheart>A partially synthetic heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
 <entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
-<entitydescription.augmentedlung>A partially synthetic set of lungs. Improves muscle speed and oxygen capacity. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
+<entitydescription.augmentedlung>A partially synthetic set of lungs. Improves muscle speed, oxygen capacity, and brief pressure resistance. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
 <entityname.augmentedbrain>Cyber-Augmented Brain Implant</entityname.augmentedbrain>
 <entitydescription.augmentedbrain>A neural augment chip for the brain. Improves skills, and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.augmentedbrain>
 
