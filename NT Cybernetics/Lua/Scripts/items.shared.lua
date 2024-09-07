@@ -31,4 +31,19 @@ Timer.Wait(function()
         end
         TalentPrefab.TalentPrefabs.Add(TalentPrefab.__new(supersoldiersTalent.ConfigElement, supersoldiersTalent.ContentFile), false)
     end
+
+    -- Immersive Repairs compatibility
+    LuaUserData.MakeMethodAccessible(Descriptors["Barotrauma.ItemPrefab"], "set_UseInHealthInterface")
+    local immersiveRepairTools = {
+        "weldingtool",
+        -- "weldingstinger", -- the stinger seems to heal and then hurt the limb (yet the weldingtool doesn't??), so keep it disabled for now
+        "repairpack",
+        "halligantool",
+    }
+    for _, tool in ipairs(immersiveRepairTools) do
+        local toolPrefab = ItemPrefab.Prefabs[tool]
+        if toolPrefab ~= nil then
+            toolPrefab.set_UseInHealthInterface(true)
+        end
+    end
 end, 1)

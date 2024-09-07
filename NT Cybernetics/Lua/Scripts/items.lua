@@ -164,7 +164,7 @@ NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, 
 
     local containedItem = item.OwnInventory.GetItemAt(0)
     if containedItem==nil then return end
-    local hasFuel = containedItem.HasTag("weldingtoolfuel") and containedItem.Condition > 0
+    local hasFuel = (containedItem.HasTag("weldingtoolfuel") or containedItem.HasTag("weldingfuel")) and containedItem.Condition > 0
     if not hasFuel then return end
 
     Timer.Wait(function()
@@ -587,4 +587,8 @@ Timer.Wait(function()
         NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
     end
 
+	-- Immersive Repairs compatibility
+    NTCyb.ItemMethods.weldingstinger = NTCyb.ItemMethods.weldingtool
+    NTCyb.ItemStartsWithMethods.repairpack = NTCyb.ItemStartsWithMethods.screwdriver
+    NTCyb.ItemMethods.halligantool = NTCyb.ItemStartsWithMethods.crowbar
 end, 500)
