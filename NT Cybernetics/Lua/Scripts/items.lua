@@ -190,10 +190,13 @@ NTCyb.ItemMethods.cyberarm = function(item, usingCharacter, targetCharacter, lim
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
-    if not NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) then return end
+    if not (NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) or HF.HasAfflictionLimb(targetCharacter,"bonecut",limbtype,99)) then return end
     if limbtype ~= LimbType.LeftArm and limbtype~=LimbType.RightArm then return end
 
     if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",70)) then
+        if not NT.LimbIsAmputated(targetCharacter,limbtype) then
+            NT.SurgicallyAmputateLimbAndGenerateItem(usingCharacter, targetCharacter, limbtype)
+        end
         NTCyb.CyberifyLimb(targetCharacter,limbtype,false)
         HF.RemoveItem(item)
     else
@@ -206,10 +209,13 @@ NTCyb.ItemMethods.waterproofcyberarm = function(item, usingCharacter, targetChar
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
-    if not NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) then return end
+    if not (NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) or HF.HasAfflictionLimb(targetCharacter,"bonecut",limbtype,99)) then return end
     if limbtype ~= LimbType.LeftArm and limbtype~=LimbType.RightArm then return end
 
     if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",70)) then
+        if not NT.LimbIsAmputated(targetCharacter,limbtype) then
+            NT.SurgicallyAmputateLimbAndGenerateItem(usingCharacter, targetCharacter, limbtype)
+        end
         NTCyb.CyberifyLimb(targetCharacter,limbtype,true)
         HF.RemoveItem(item)
     else
@@ -222,10 +228,13 @@ NTCyb.ItemMethods.waterproofcyberleg = function(item, usingCharacter, targetChar
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
-    if not NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) then return end
+    if not (NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) or HF.HasAfflictionLimb(targetCharacter,"bonecut",limbtype,99)) then return end
     if limbtype ~= LimbType.LeftLeg and limbtype~=LimbType.RightLeg then return end
 
     if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",70)) then
+        if not NT.LimbIsAmputated(targetCharacter,limbtype) then
+            NT.SurgicallyAmputateLimbAndGenerateItem(usingCharacter, targetCharacter, limbtype)
+        end
         NTCyb.CyberifyLimb(targetCharacter,limbtype,true)
         HF.RemoveItem(item)
     else
@@ -238,10 +247,13 @@ NTCyb.ItemMethods.cyberleg = function(item, usingCharacter, targetCharacter, lim
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
-    if not NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) then return end
+    if not (NT.LimbIsSurgicallyAmputated(targetCharacter,limbtype) or HF.HasAfflictionLimb(targetCharacter,"bonecut",limbtype,99)) then return end
     if limbtype ~= LimbType.LeftLeg and limbtype~=LimbType.RightLeg then return end
 
     if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",70)) then
+        if not NT.LimbIsAmputated(targetCharacter,limbtype) then
+            NT.SurgicallyAmputateLimbAndGenerateItem(usingCharacter, targetCharacter, limbtype)
+        end
         NTCyb.CyberifyLimb(targetCharacter,limbtype,false)
         HF.RemoveItem(item)
     else
@@ -251,7 +263,7 @@ NTCyb.ItemMethods.cyberleg = function(item, usingCharacter, targetCharacter, lim
 end
 
 -- Crowbar: detaches a Cyberlimb (if skilled and intact)
-NTCyb.ItemMethods.crowbar = function(item, usingCharacter, targetCharacter, limb) 
+NTCyb.ItemStartsWithMethods.crowbar = function(item, usingCharacter, targetCharacter, limb)
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end

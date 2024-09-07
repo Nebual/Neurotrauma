@@ -89,3 +89,36 @@ function NTCyb.CyberifyLimb(character,limbtype,iswaterproof)
 
     HF.SetAfflictionLimb(character,"ntc_cyberlimb",limbtype,100)
 end
+
+
+if NT.SurgicallyAmputateLimbAndGenerateItem == nil then
+    -- BC compatibility with Neurotrauma until this gets merged into main https://github.com/OlegBSTU/Neurotrauma/pull/16
+    function NT.SurgicallyAmputateLimbAndGenerateItem(usingCharacter, targetCharacter, limbtype)
+        -- drop previously worn headgear item
+        local previtem = HF.GetHeadWear(targetCharacter)
+        if(previtem ~= nil and limbtype == LimbType.Head) then
+            previtem.Drop(usingCharacter,true)
+        end
+
+        local droplimb =
+            not NT.LimbIsAmputated(targetCharacter,limbtype)
+            and not HF.HasAfflictionLimb(targetCharacter,"gangrene",limbtype,15)
+
+        NT.SurgicallyAmputateLimb(targetCharacter,limbtype)
+        if (droplimb) then
+            local limbtoitem = {}
+            limbtoitem[LimbType.RightLeg] = "rleg"
+            limbtoitem[LimbType.LeftLeg] = "lleg"
+            limbtoitem[LimbType.RightArm] = "rarm"
+            limbtoitem[LimbType.LeftArm] = "larm"
+            if limbtoitem[limbtype] ~= nil then
+                HF.GiveItem(usingCharacter,limbtoitem[limbtype])
+                if NTSP ~= nil and NTConfig.Get("NTSP_enableSurgerySkill",true) then
+                    HF.GiveSkill(usingCharacter,"surgery",0.5)
+                else
+                    HF.GiveSkill(usingCharacter,"medical",0.25)
+                end
+            end
+        end
+    end
+end
