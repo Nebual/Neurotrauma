@@ -40,31 +40,3 @@ Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, pt
 		Hook.RemovePatch("NTC.IsDead_Patch", "Barotrauma.Character", "get_IsDead", Hook.HookMethodType.Before)
 	end
 end, Hook.HookMethodType.After)
-
-
-local supersoldiersTalent = TalentPrefab.TalentPrefabs["supersoldiers"]
-if supersoldiersTalent ~= nil then
-	local xmlDefinition = [[
-		<overwrite>
-			<AddedRecipe itemidentifier="cyberliver" />
-			<AddedRecipe itemidentifier="cyberkidney" />
-			<AddedRecipe itemidentifier="cyberlung" />
-			<AddedRecipe itemidentifier="cyberheart" />
-			<AddedRecipe itemidentifier="cyberbrain" />
-		</overwrite>
-	]]
-	local xml = XDocument.Parse(xmlDefinition)
-	for element in xml.Root.Elements() do
-		supersoldiersTalent.ConfigElement.Element.Add(element)
-	end
-
-	-- this isn't working, is some Refresh needed?
-	for descNode in supersoldiersTalent.ConfigElement.GetChildElements("Description") do
-		if descNode.GetAttributeString("tag") == "talentdescription.unlockrecipe" then
-			for replaceTag in descNode.Elements() do
-				replaceTag.SetAttributeValue("value", replaceTag.GetAttributeString("value") .. ",entityname.cyberliver,entityname.cyberkidney,entityname.cyberlung,entityname.cyberheart,entityname.cyberbrain")
-				return
-			end
-		end
-	end
-end

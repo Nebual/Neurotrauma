@@ -20,6 +20,7 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
         dofile(NTCyb.Path.."/Lua/Scripts/empexplosionpatch.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/humanupdate.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/items.lua")
+        dofile(NTCyb.Path.."/Lua/Scripts/items.shared.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/ondamaged.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/helperfunctions.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/configdata.lua")
@@ -31,5 +32,6 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
 else
     Timer.Wait(function()
         dofile(NTCyb.Path.."/Lua/Scripts/items.client.lua")
+        dofile(NTCyb.Path.."/Lua/Scripts/items.shared.lua")
     end, 1)
 end

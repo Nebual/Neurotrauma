@@ -587,20 +587,4 @@ Timer.Wait(function()
         NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
     end
 
-    local supersoldiersTalent = TalentPrefab.TalentPrefabs["supersoldiers"]
-    if supersoldiersTalent ~= nil then
-        local xmlDefinition = [[
-            <overwrite>
-                <AddedRecipe itemidentifier="cyberliver" />
-                <AddedRecipe itemidentifier="cyberkidney" />
-                <AddedRecipe itemidentifier="cyberlung" />
-                <AddedRecipe itemidentifier="cyberheart" />
-                <AddedRecipe itemidentifier="cyberbrain" />
-            </overwrite>
-        ]]
-        local xml = XDocument.Parse(xmlDefinition)
-        for element in xml.Root.Elements() do
-            supersoldiersTalent.ConfigElement.Element.Add(element)
-        end
-    end
 end, 500)
