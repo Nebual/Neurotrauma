@@ -1,8 +1,8 @@
 
 NTCyb = {} -- Neurotrauma Cybernetics
 NTCyb.Name="Cybernetics"
-NTCyb.Version = "A1.2.4h1"
-NTCyb.VersionNum = 01020401
+NTCyb.Version = "A1.3.0"
+NTCyb.VersionNum = 01030000
 NTCyb.MinNTVersion = "A1.8.7"
 NTCyb.MinNTVersionNum = 01080700
 NTCyb.Path = table.pack(...)[1]

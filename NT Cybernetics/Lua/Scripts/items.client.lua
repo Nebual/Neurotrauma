@@ -1,21 +1,21 @@
--- Allow the crowbar to remove cybernetics from dead bodies
--- by patching character.IsDead to temporarily return false during the resolution of the 'apply crowbar' in the Health UI
+-- Allow the crowbar to remove cybernetics from dead bodies (and other repair related tools)
+-- by patching character.IsDead to temporarily return false during the resolution of the 'apply tool' in the Health UI
 local allowedNecromancyItems = {
-	crowbar = 1,
-	screwdriver = 1,
 	weldingtool = 1,
 	steel = 1,
 	fpgacircuit = 1,
+	repairpack = 1,
+	halligantool = 1,
 	-- tools needed for cyberorgan removal
 	advscalpel = 1,
 	advhemostat = 1,
 	advretractors = 1,
-	organscalpel_kidneys = 1,
-	organscalpel_liver = 1,
-	organscalpel_lungs = 1,
-	organscalpel_heart = 1,
-	organscalpel_brain = 1,
 	multiscalpel = 1,
+}
+local allowedNecromancyItemsStartsWith = {
+	crowbar = 1,
+	screwdriver = 1,
+	organscalpel = 1,
 }
 local temporarilyUndeadCharacter = nil
 local function patchIsDead()
@@ -29,9 +29,20 @@ local function patchIsDead()
 end
 
 Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
-	if instance.Character.IsDead and allowedNecromancyItems[ptable["item"].Prefab.Identifier.Value] ~= nil then
-		temporarilyUndeadCharacter = instance.Character
-		patchIsDead()
+	if instance.Character.IsDead then
+		local identifier = ptable["item"].Prefab.Identifier.Value
+		if allowedNecromancyItems[identifier] ~= nil then
+			temporarilyUndeadCharacter = instance.Character
+			patchIsDead()
+		else
+			for key,_ in pairs(allowedNecromancyItemsStartsWith) do
+				if HF.StartsWith(identifier,key) then
+					temporarilyUndeadCharacter = instance.Character
+					patchIsDead()
+					break
+				end
+			end
+		end
 	end
 end, Hook.HookMethodType.Before)
 Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
