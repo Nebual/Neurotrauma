@@ -574,6 +574,7 @@ Timer.Wait(function()
                     }
                     HF.GiveItemPlusFunction(organConfig.tier2Item,postSpawnFunc,params,usingCharacter)
                 end
+                HF.SetAfflictionLimb(targetCharacter,organConfig.cyberAffliction,limbtype,0,usingCharacter)
             else
                 HF.AddAfflictionLimb(targetCharacter,"bleeding",limbtype,15,usingCharacter)
                 HF.AddAfflictionLimb(targetCharacter,"organdamage",limbtype,5,usingCharacter)
