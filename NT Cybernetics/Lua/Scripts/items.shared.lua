@@ -41,9 +41,8 @@ Timer.Wait(function()
         "halligantool",
     }
     for _, tool in ipairs(immersiveRepairTools) do
-        local toolPrefab = ItemPrefab.Prefabs[tool]
-        if toolPrefab ~= nil then
-            toolPrefab.set_UseInHealthInterface(true)
+        if ItemPrefab.Prefabs.ContainsKey(tool) then
+            ItemPrefab.Prefabs[tool].set_UseInHealthInterface(true)
         end
     end
 end, 1)

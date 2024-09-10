@@ -497,19 +497,10 @@ Timer.Wait(function()
         end
     end
 
-    local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb, baseMethod)
-        local organConfig
-        for organ, data in pairs(organConfigDatas) do
-            if string.find(item.Prefab.Identifier.Value, organ) then
-                organConfig = data
-                break
-            end
-        end
+    local function removeCyberOrgan(item, usingCharacter, targetCharacter, limb, organConfig)
         if organConfig == nil then
-            if item.Prefab.Identifier.Value ~= "multiscalpel" then
-                print("NT Cybernetics: Unknown organscalpel " .. tostring(item.Prefab.Identifier.Value))
-            end
-            baseMethod(item, usingCharacter, targetCharacter, limb)
+            print("NT Cybernetics: Unknown organscalpel: " .. tostring(item.Prefab.Identifier.Value))
+            organConfig.baseMethod(item, usingCharacter, targetCharacter, limb)
             return
         end
 
@@ -586,14 +577,14 @@ Timer.Wait(function()
 
             HF.GiveItem(targetCharacter,"ntsfx_slash")
         elseif not targetCharacter.IsDead then
-            baseMethod(item, usingCharacter, targetCharacter, limb)
+            organConfig.baseMethod(item, usingCharacter, targetCharacter, limb)
         end
     end
-    NT.ItemMethods.organscalpel_kidneys = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["kidney"].baseMethod) end
-    NT.ItemMethods.organscalpel_liver = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["liver"].baseMethod) end
-    NT.ItemMethods.organscalpel_lungs = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["lung"].baseMethod) end
-    NT.ItemMethods.organscalpel_heart = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["heart"].baseMethod) end
-    NT.ItemMethods.organscalpel_brain = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["brain"].baseMethod) end
+    NT.ItemMethods.organscalpel_kidneys = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["kidney"]) end
+    NT.ItemMethods.organscalpel_liver = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["liver"]) end
+    NT.ItemMethods.organscalpel_lungs = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["lung"]) end
+    NT.ItemMethods.organscalpel_heart = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["heart"]) end
+    NT.ItemMethods.organscalpel_brain = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["brain"]) end
 
     table.insert(NT.BLOODTYPE, {"abcplus", 0}) -- cybernetic blood
     if NTP ~= nil and NTP.PillData ~= nil then
