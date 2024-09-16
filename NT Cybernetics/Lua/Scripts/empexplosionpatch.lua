@@ -22,6 +22,13 @@ function (instance, ptable)
               HF.AddAfflictionLimb(character,"ntc_damagedelectronics",limbtype,affliction_strength,explode_attacker)
             end
           end
+
+          for _, organConfig in pairs(NTCyb.OrganConfigDatas) do
+            local isTier3Mul = HF.GetAfflictionStrength(character, organConfig.cyberAffliction, 0) / 100 -- tier 2 takes half the damage of tier 3
+            if isTier3Mul > 0.01 then
+              HF.AddAffliction(character, organConfig.damageAffliction, affliction_strength / 5 * isTier3Mul, explode_attacker)
+            end
+          end
         end
       end
     end
