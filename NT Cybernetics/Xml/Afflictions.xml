@@ -403,6 +403,28 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,896,128,128" color="10,193,114,255" origin="0,0"/>
   </Affliction>
 
+  <!-- Immunosuppressant Inhaler / mildly decreases immunity to prevent Cyberpsychosis -->
+  <Affliction
+    name=""
+    identifier="immunosuppressantinhaler"
+    description=""
+    healableinmedicalclinic="false"
+    targets="human"
+    type="resistance"
+    isbuff="true"
+    limbspecific="false"
+    showiconthreshold="10"
+    showinhealthscannerthreshold="300"
+    maxstrength="100">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-0.125">
+      <StatusEffect target="Character" comparison="and">
+        <Conditional ishuman="true" immunity="gte 85"/>
+        <ReduceAffliction identifier="immunity" amount="2.5"/>
+      </StatusEffect>
+    </Effect>
+    <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="0,4" sheetelementsize="128,128" origin="0,0"/>
+  </Affliction>
+
   <!-- /// cyberlimb damage types /// -->
 
   <!-- Loose screws

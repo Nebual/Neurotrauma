@@ -509,6 +509,49 @@
     <Deconstruct/>
   </Item>
   
+  <Item name="" identifier="immunosuppressantinhaler" description="" impactsoundtag="impact_soft"
+    useinhealthinterface="True" category="Medical" cargocontaineridentifier="mediccrate" Tags="smallitem,medical"
+    maxstacksize="32" maxstacksizecharacterinventory="3"
+    scale="0.2"
+  >
+    <Price baseprice="60" soldbydefault="false">
+      <Price storeidentifier="merchantmedical" sold="true" multiplier="0.9" minavailable="3"/>
+    </Price>
+    <PreferredContainer primary="medcab" spawnprobability="0.2"/>
+    <PreferredContainer primary="wreckmedcab,abandonedmedcab" minamount="0" maxamount="3" spawnprobability="0.1"/>
+    <PreferredContainer primary="outposttrashcan" minamount="0" maxamount="2" spawnprobability="0.03"/>
+    <Sprite texture="%ModDir%/Images/InventoryItemIconAtlas.png" sourcerect="256,0,84,128" depth="0.6" origin="0.5,0.5"/>
+    <Body width="14" height="22" density="10"/>
+    <Fabricate suitablefabricators="medicalfabricator" requiredtime="15" amount="3">
+      <RequiredSkill identifier="medical" level="40" />
+      <RequiredItem identifier="immunosuppressant" amount="1" />
+      <RequiredItem identifier="plastic" amount="3" />
+      <RequiredItem identifier="stabilozine" amount="2" />
+    </Fabricate>
+    <Deconstruct time="5">
+      <Item identifier="plastic" amount="1" />
+    </Deconstruct>
+    <Holdable slots="Any,RightHand,LeftHand" canBeCombined="true" removeOnCombined="true" aimable="false" aimpos="23,23" handle1="5,-2" swingamount="0,0" swingspeed="0.5" swingwhenusing="true" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This">
+        <Conditional InWater="false" />
+        <ParticleEmitter particle="swirlysmoke" particlespersecond="1" scalemin="1" scalemax="2" anglemin="0" anglemax="360" velocitymin="0" velocitymax="10"/>
+      </StatusEffect>
+      <StatusEffect type="OnSecondaryUse" target="This">
+        <Conditional InWater="true" />
+        <ParticleEmitter particle="bubbles" particlespersecond="3" scalemin="0.3" scalemax="0.5" anglemin="0" anglemax="360" velocitymin="0" velocitymax="10"/>
+      </StatusEffect>
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="-5.0" disabledeltatime="false">
+      </StatusEffect>
+      <StatusEffect type="OnSecondaryUse" target="Character" disabledeltatime="false">
+        <Affliction identifier="immunosuppressantinhaler" amount="20"/>
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+    <SkillRequirementHint identifier="medical" level="15"/>
+  </Item>
+
   <!-- SFX items -->
 
   <Item name="." identifier="ntcsfx_screwdriver" description="." hideinmenus="true">

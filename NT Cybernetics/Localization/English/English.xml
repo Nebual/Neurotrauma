@@ -45,6 +45,9 @@
 <entitydescription.abcpluscard>Can take blood from: all of them
 Can give blood to: C+</entitydescription.abcpluscard>
 
+<entityname.immunosuppressantinhaler>Immunoblocker Inhaler</entityname.immunosuppressantinhaler>
+<entitydescription.immunosuppressantinhaler>Depresses the immune system to reduce Cyberpsychosis caused by excessive cybernetic implants.</entitydescription.immunosuppressantinhaler>
+
 <!-- AFFLICTIONS -->
 
 <afflictionname.ntc_cyberlimb></afflictionname.ntc_cyberlimb>
@@ -73,8 +76,7 @@ Can give blood to: C+</entitydescription.abcpluscard>
 <afflictionname.ntc_materialloss>Material loss</afflictionname.ntc_materialloss>
 <afflictiondescription.ntc_materialloss>Parts of the limb are gone.</afflictiondescription.ntc_materialloss>
 
-
-<afflictionname.></afflictionname.>
-<afflictiondescription.></afflictiondescription.>
+<afflictionname.immunosuppressantinhaler>Inhaled Immunosuppressants</afflictionname.immunosuppressantinhaler>
+<afflictiondescription.immunosuppressantinhaler></afflictiondescription.immunosuppressantinhaler>
 
 </infotexts>

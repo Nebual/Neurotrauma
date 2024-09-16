@@ -482,6 +482,19 @@ end
 NTCyb.ItemMethods.augmentedbrain = implantBrain
 NTCyb.ItemMethods.cyberbrain = implantBrain
 
+NT.ItemMethods.immunosuppressantinhaler = function(item, usingCharacter, targetCharacter, limb)
+    if(HF.GetSkillRequirementMet(usingCharacter,"medical",15)) then
+        HF.AddAffliction(targetCharacter,"immunosuppressantinhaler",100,usingCharacter)
+    else
+        HF.AddAffliction(targetCharacter,"immunosuppressantinhaler",50,usingCharacter)
+    end
+    item.Condition = item.Condition - 25
+    if item.Condition <= 0 then
+        HF.RemoveItem(item)
+    end
+    HF.GiveItem(targetCharacter,"ntsfx_syringe")
+end
+
 
 -- overrides
 
@@ -491,6 +504,7 @@ NTCyb.ItemStartsWithMethods.repairpack = NTCyb.ItemStartsWithMethods.screwdriver
 NTCyb.ItemMethods.halligantool = NTCyb.ItemStartsWithMethods.crowbar
 
 Timer.Wait(function()
+    NTC.AddHematologyAffliction("immunosuppressantinhaler")
 
     if not HF.GiveSurgerySkill then
         -- BC compatibility with Neurotrauma until this gets merged into main
