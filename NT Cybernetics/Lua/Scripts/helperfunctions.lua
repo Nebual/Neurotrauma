@@ -90,6 +90,20 @@ function NTCyb.CyberifyLimb(character,limbtype,iswaterproof)
     HF.SetAfflictionLimb(character,"ntc_cyberlimb",limbtype,100)
 end
 
+NTCyb.HF.GetAllCyberDamages = function(targetCharacter, limbtype)
+    return {
+        ntc_bentmetal = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_bentmetal",0),
+        ntc_materialloss = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_materialloss",0),
+        ntc_damagedelectronics = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_damagedelectronics",0),
+        ntc_loosescrews = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_loosescrews",0),
+    }
+end
+NTCyb.HF.SetAllCyberDamages = function(targetCharacter, limbtype, oldCyberDamages)
+    for damageType, damageAmount in pairs(oldCyberDamages) do
+        HF.SetAfflictionLimb(targetCharacter,damageType,limbtype,damageAmount)
+    end
+end
+
 
 if NT.SurgicallyAmputateLimbAndGenerateItem == nil then
     -- BC compatibility with Neurotrauma until this gets merged into main https://github.com/OlegBSTU/Neurotrauma/pull/16

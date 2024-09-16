@@ -27,7 +27,7 @@ end
 -- Cyberorgans: replace your meat with more expensive but durable/beneficial tier 2 ("augmentedkidney") or tier 3 ("cyberkidney") organs
 -- Augmented organs use a meat organ as an ingredient, while Cyber organs (and both Brain implants) are fully synthetic
 -- Brain implants are chips inserted during surgery into the meat, not a replacement
-local organConfigDatas = {
+NTCyb.OrganConfigDatas = {
     kidney = {
         limb = LimbType.Torso,
         damageAffliction = "kidneydamage",
@@ -102,19 +102,19 @@ end
 NTCyb.ItemMethods = {} -- with the identifier as the key
 NTCyb.ItemStartsWithMethods = {} -- with the start of the identifier as the key
 
-NTCyb.ItemMethods.fpgacircuit = function(item, usingCharacter, targetCharacter, limb) 
+
+NTCyb.RepairDamagedElectronics = function(item, usingCharacter, targetCharacter, limb, maxHeal, maxMaterialLoss)
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_damagedelectronics",0)
     if limbDamage < 0.1 then return end
-    local amountHealed
-    if(HF.GetSkillRequirementMet(usingCharacter,"electrical",40)) then
-        amountHealed = math.min(limbDamage, 50)
-        item.Condition = item.Condition - math.min(item.Condition, amountHealed*2)
-    else
-        amountHealed = math.min(limbDamage, 25)
-        item.Condition = item.Condition - math.min(item.Condition, amountHealed*4)
+
+    local amountHealed = math.min(limbDamage, maxHeal, (item.Condition / maxMaterialLoss) * maxHeal)
+    item.Condition = item.Condition - math.min(item.Condition, 100 * (amountHealed/maxHeal) * (maxMaterialLoss/100))
+
+    if(not HF.GetSkillRequirementMet(usingCharacter,"electrical",40)) then
+        amountHealed = amountHealed / 2
     end
     HF.AddAfflictionLimb(targetCharacter,"ntc_damagedelectronics",limbtype,-amountHealed)
     forceSyncAfflictions(targetCharacter)
@@ -127,20 +127,26 @@ NTCyb.ItemMethods.fpgacircuit = function(item, usingCharacter, targetCharacter, 
     end
 end
 
-NTCyb.ItemMethods.steel = function(item, usingCharacter, targetCharacter, limb) 
+NTCyb.ItemMethods.fpgacircuit = function(item, usingCharacter, targetCharacter, limb)
+    NTCyb.RepairDamagedElectronics(item, usingCharacter, targetCharacter, limb, 50, 100)
+    if item.Condition <= 0 then
+        HF.RemoveItem(item)
+    end
+end
+
+
+NTCyb.RepairMaterialLoss = function(item, usingCharacter, targetCharacter, limb, maxHeal, maxMaterialLoss)
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_materialloss",0)
     if limbDamage < 0.1 then return end
-    local amountHealed
 
-    if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",60)) then
-        amountHealed = math.min(limbDamage, 50)
-        item.Condition = item.Condition - math.min(item.Condition, amountHealed*2)
-    else
-        amountHealed = math.min(limbDamage, 25)
-        item.Condition = item.Condition - math.min(item.Condition, amountHealed*4)
+    local amountHealed = math.min(limbDamage, maxHeal, (item.Condition / maxMaterialLoss) * maxHeal)
+    item.Condition = item.Condition - math.min(item.Condition, 100 * (amountHealed/maxHeal) * (maxMaterialLoss/100))
+
+    if(not HF.GetSkillRequirementMet(usingCharacter,"mechanical",60)) then
+        amountHealed = amountHealed / 2
     end
     HF.AddAfflictionLimb(targetCharacter,"ntc_materialloss",limbtype,-amountHealed)
     forceSyncAfflictions(targetCharacter)
@@ -150,41 +156,81 @@ NTCyb.ItemMethods.steel = function(item, usingCharacter, targetCharacter, limb)
     if math.random() < 0.5 then 
         HF.GiveItem(targetCharacter,"ntcsfx_screwdriver") else 
         HF.GiveItem(targetCharacter,"ntcsfx_welding") end
+end
+
+NTCyb.ItemMethods.steel = function(item, usingCharacter, targetCharacter, limb)
+    NTCyb.RepairMaterialLoss(item, usingCharacter, targetCharacter, limb, 50, 100)
     if item.Condition <= 0 then
         HF.RemoveItem(item)
     end
 end
+-- EK Mods compatibility
+NTCyb.ItemMethods.ekutility_hullrepairkit = function(item, usingCharacter, targetCharacter, limb)
+    local containedItem = item.OwnInventory.GetItemAt(0)
+    if containedItem==nil then return end
+	local identifier = containedItem.Prefab.Identifier.Value
+    local hasFuel = identifier == "steel" and containedItem.Condition > 0
+    if not hasFuel then return end
 
-NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, limb) 
+    NTCyb.RepairMaterialLoss(containedItem, usingCharacter, targetCharacter, limb, 25, 50)
+    if containedItem.Condition <= 0 then
+        HF.RemoveItem(containedItem)
+    end
+end
+NTCyb.ItemMethods.ekutility_metalfoam_gun = function(item, usingCharacter, targetCharacter, limb)
+    local containedItem = item.OwnInventory.GetItemAt(0)
+    if containedItem==nil then return end
+	local identifier = containedItem.Prefab.Identifier.Value
+    local hasFuel = identifier == "ekutility_metalfoam_tank" and containedItem.Condition > 0
+    if not hasFuel then return end
+
+    NTCyb.RepairMaterialLoss(containedItem, usingCharacter, targetCharacter, limb, 50, 10)
+end
+
+NTCyb.RepairBentMetal = function(item, usingCharacter, targetCharacter, limb, maxHeal, maxMaterialLoss)
     local limbtype = HF.NormalizeLimbType(limb.type)
 
     if not NTCyb.HF.LimbIsCyber(targetCharacter,limbtype) then return end
     local limbDamage = HF.GetAfflictionStrengthLimb(targetCharacter,limbtype,"ntc_bentmetal",0)
     if limbDamage < 0.1 then return end
 
-    local containedItem = item.OwnInventory.GetItemAt(0)
-    if containedItem==nil then return end
-    local hasFuel = (containedItem.HasTag("weldingtoolfuel") or containedItem.HasTag("weldingfuel")) and containedItem.Condition > 0
-    if not hasFuel then return end
+    local amountHealed = math.min(limbDamage, maxHeal, (item.Condition / maxMaterialLoss) * maxHeal)
+    item.Condition = item.Condition - math.min(item.Condition, 100 * (amountHealed/maxHeal) * (maxMaterialLoss/100))
 
+    if(not HF.GetSkillRequirementMet(usingCharacter,"mechanical",50)) then
+        amountHealed = amountHealed / 2
+    end
+    local oldCyberDamages = NTCyb.HF.GetAllCyberDamages(targetCharacter, limbtype) -- some mods (eg. EK) make welding torch hurt limbs, so lets record and undo any damage done this frame
     Timer.Wait(function()
-        local amountHealed
         NTCyb.ConvertDamageTypes(targetCharacter,limbtype)
-        if(HF.GetSkillRequirementMet(usingCharacter,"mechanical",50)) then
-            amountHealed = math.min(limbDamage, 20)
-        else
-            amountHealed = math.min(limbDamage, 5)
-        end
+        NTCyb.HF.SetAllCyberDamages(targetCharacter, limbtype, oldCyberDamages)
         HF.AddAfflictionLimb(targetCharacter,"ntc_bentmetal",limbtype,-amountHealed)
         forceSyncAfflictions(targetCharacter)
-        HF.GiveSkillScaled(usingCharacter,"mechanical", amountHealed*2)
-        HF.GiveSkillScaled(usingCharacter,"medical", amountHealed)
     end,1)
-    
+    HF.GiveSkillScaled(usingCharacter,"mechanical", amountHealed*2)
+    HF.GiveSkillScaled(usingCharacter,"medical", amountHealed)
 
     HF.GiveItem(targetCharacter,"ntcsfx_welding")
-    containedItem.Condition = containedItem.Condition-2
 end
+
+NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, limb)
+    local containedItem = item.OwnInventory.GetItemAt(0)
+    if containedItem==nil then return end
+    -- weldingfuel is for Immersive Repairs WeldingTorch, mobilebattery is for EK Mods's ArcWelder
+    local hasFuel = (containedItem.HasTag("weldingtoolfuel") or containedItem.HasTag("weldingfuel") or containedItem.HasTag("mobilebattery")) and containedItem.Condition > 0
+    if not hasFuel then return end
+
+    local fuelUsed = 2
+	local identifier = containedItem.Prefab.Identifier.Value
+	if identifier == "fulguriumbatterycell" then
+		fuelUsed = 1
+    end
+
+    NTCyb.RepairBentMetal(containedItem, usingCharacter, targetCharacter, limb, 20, fuelUsed)
+end
+-- EK Mods compatibility
+NTCyb.ItemMethods.ekutility_arcwelder = NTCyb.ItemMethods.weldingtool
+
 
 NTCyb.ItemMethods.cyberarm = function(item, usingCharacter, targetCharacter, limb) 
     local limbtype = HF.NormalizeLimbType(limb.type)
@@ -317,7 +363,7 @@ NTCyb.ItemStartsWithMethods.screwdriver = function(item, usingCharacter, targetC
     local limbtype = limb.type
 
     -- fix up minor cyber-organ damage
-    for organ, organConfig in pairs(organConfigDatas) do
+    for organ, organConfig in pairs(NTCyb.OrganConfigDatas) do
         -- todo: allow full repairing organs in fab, and then limit the screwdriver to only minor repairs
         if limbtype == organConfig.limb
             and HF.HasAffliction(targetCharacter, "ntc_cyber" .. organ, 1)
@@ -365,7 +411,7 @@ end
 
 local function implantOrgan(item, usingCharacter, targetCharacter, limb)
     local organName
-    for organ, _ in pairs(organConfigDatas) do
+    for organ, _ in pairs(NTCyb.OrganConfigDatas) do
         if string.find(item.Prefab.Identifier.Value, organ) then
             organName = organ
             break
@@ -377,7 +423,7 @@ local function implantOrgan(item, usingCharacter, targetCharacter, limb)
     end
     local limbtype = limb.type
     local conditionmodifier = 0
-    if (not HF.GetSkillRequirementMet(usingCharacter,organConfigDatas[organName].secondarySkillName,60)) then conditionmodifier = conditionmodifier - 20 end
+    if (not HF.GetSkillRequirementMet(usingCharacter,NTCyb.OrganConfigDatas[organName].secondarySkillName,60)) then conditionmodifier = conditionmodifier - 20 end
 
     local workcondition = HF.Clamp(item.Condition+conditionmodifier,0,100)
     if(HF.HasAffliction(targetCharacter, organName .. "removed",1) and limbtype == LimbType.Torso and HF.HasAfflictionLimb(targetCharacter,"retractedskin",limbtype,99)) then
@@ -392,7 +438,7 @@ local function implantOrgan(item, usingCharacter, targetCharacter, limb)
         HF.AddAffliction(targetCharacter,"organdamage",-(workcondition)/5,usingCharacter) -- heal a bit of vanilla organ damage
         HF.SetAffliction(targetCharacter, organName .. "removed",0,usingCharacter) -- clear "liverremoved"
         HF.SetAfflictionLimb(targetCharacter,"ntc_cyber" .. organName,limbtype, string.find(item.Prefab.Identifier.Value, "augmented") and 50 or 100) -- add "ntc_cyberliver", at 50% strength if its Augmented (tier 2), 100% if Cyber (tier 3)
-        for _, affliction in ipairs(organConfigDatas[organName].curedAfflictions) do
+        for _, affliction in ipairs(NTCyb.OrganConfigDatas[organName].curedAfflictions) do
             HF.SetAffliction(targetCharacter,affliction,0,usingCharacter)
         end
         HF.RemoveItem(item)
@@ -413,7 +459,7 @@ local function implantBrain(item, usingCharacter, targetCharacter, limb)
     local organName = "brain"
     local limbtype = limb.type
     local conditionmodifier = 0
-    if (not HF.GetSkillRequirementMet(usingCharacter,organConfigDatas[organName].secondarySkillName,60)) then conditionmodifier = conditionmodifier - 20 end
+    if (not HF.GetSkillRequirementMet(usingCharacter,NTCyb.OrganConfigDatas[organName].secondarySkillName,60)) then conditionmodifier = conditionmodifier - 20 end
 
     local workcondition = HF.Clamp(item.Condition+conditionmodifier,0,100)
     -- brain implants are chips inserted during surgery into the meat, so the brain must still be there
@@ -438,6 +484,11 @@ NTCyb.ItemMethods.cyberbrain = implantBrain
 
 
 -- overrides
+
+-- Immersive Repairs compatibility
+NTCyb.ItemMethods.weldingstinger = NTCyb.ItemMethods.weldingtool
+NTCyb.ItemStartsWithMethods.repairpack = NTCyb.ItemStartsWithMethods.screwdriver
+NTCyb.ItemMethods.halligantool = NTCyb.ItemStartsWithMethods.crowbar
 
 Timer.Wait(function()
 
@@ -580,19 +631,14 @@ Timer.Wait(function()
             organConfig.baseMethod(item, usingCharacter, targetCharacter, limb)
         end
     end
-    NT.ItemMethods.organscalpel_kidneys = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["kidney"]) end
-    NT.ItemMethods.organscalpel_liver = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["liver"]) end
-    NT.ItemMethods.organscalpel_lungs = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["lung"]) end
-    NT.ItemMethods.organscalpel_heart = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["heart"]) end
-    NT.ItemMethods.organscalpel_brain = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, organConfigDatas["brain"]) end
+    NT.ItemMethods.organscalpel_kidneys = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, NTCyb.OrganConfigDatas["kidney"]) end
+    NT.ItemMethods.organscalpel_liver = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, NTCyb.OrganConfigDatas["liver"]) end
+    NT.ItemMethods.organscalpel_lungs = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, NTCyb.OrganConfigDatas["lung"]) end
+    NT.ItemMethods.organscalpel_heart = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, NTCyb.OrganConfigDatas["heart"]) end
+    NT.ItemMethods.organscalpel_brain = function(p1, p2, p3, p4) removeCyberOrgan(p1, p2, p3, p4, NTCyb.OrganConfigDatas["brain"]) end
 
     table.insert(NT.BLOODTYPE, {"abcplus", 0}) -- cybernetic blood
     if NTP ~= nil and NTP.PillData ~= nil then
         NTP.PillData.items.bloodpackabcplus=NTP.PillData.items["antibloodloss2"]
     end
-
-	-- Immersive Repairs compatibility
-    NTCyb.ItemMethods.weldingstinger = NTCyb.ItemMethods.weldingtool
-    NTCyb.ItemStartsWithMethods.repairpack = NTCyb.ItemStartsWithMethods.screwdriver
-    NTCyb.ItemMethods.halligantool = NTCyb.ItemStartsWithMethods.crowbar
 end, 500)

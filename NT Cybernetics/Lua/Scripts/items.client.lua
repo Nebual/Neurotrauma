@@ -1,6 +1,6 @@
 -- Allow the crowbar to remove cybernetics from dead bodies (and other repair related tools)
 -- by patching character.IsDead to temporarily return false during the resolution of the 'apply tool' in the Health UI
-local allowedNecromancyItems = {
+NTCyb.AllowedNecromancyItems = {
 	weldingtool = 1,
 	steel = 1,
 	fpgacircuit = 1,
@@ -12,7 +12,7 @@ local allowedNecromancyItems = {
 	advretractors = 1,
 	multiscalpel = 1,
 }
-local allowedNecromancyItemsStartsWith = {
+NTCyb.AllowedNecromancyItemsStartsWith = {
 	crowbar = 1,
 	screwdriver = 1,
 	organscalpel = 1,
@@ -31,11 +31,11 @@ end
 Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
 	if instance.Character.IsDead then
 		local identifier = ptable["item"].Prefab.Identifier.Value
-		if allowedNecromancyItems[identifier] ~= nil then
+		if NTCyb.AllowedNecromancyItems[identifier] ~= nil then
 			temporarilyUndeadCharacter = instance.Character
 			patchIsDead()
 		else
-			for key,_ in pairs(allowedNecromancyItemsStartsWith) do
+			for key,_ in pairs(NTCyb.AllowedNecromancyItemsStartsWith) do
 				if HF.StartsWith(identifier,key) then
 					temporarilyUndeadCharacter = instance.Character
 					patchIsDead()
