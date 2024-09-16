@@ -499,4 +499,49 @@
 		<icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="4,0" sheetelementsize="128,128" origin="0,0"/>
   </Affliction>
 
+  <Override>
+    <!-- Compatability: overriding this (for the <5% has no haze part) until https://github.com/OlegBSTU/Neurotrauma/pull/18 merges into NT main -->
+    <Affliction
+      name=""
+      identifier="analgesia"
+      description=""
+      healableinmedicalclinic="false"
+      targets="human"
+      type="resistance"
+      isbuff="true"
+      limbspecific="false"
+      showiconthreshold="10"
+      showinhealthscannerthreshold="1"
+      maxstrength="200">
+      <Effect minstrength="0" maxstrength="5"
+        resistancefor="damage"
+        minresistance="0"
+        maxresistance="0.025"
+        strengthchange="-0.3">
+        <StatusEffect target="Character">
+          <ReduceAffliction type="pain" amount="5" />
+        </StatusEffect>
+      </Effect>
+      <Effect minstrength="5" maxstrength="200"
+        resistancefor="damage"
+        minresistance="0.025"
+        maxresistance="0.5"
+        minscreendistort="0.0"
+        maxscreendistort="0.0"
+        minscreenblur="0.0"
+        maxscreenblur="0.1"
+        minradialdistort="0.0"
+        maxradialdistort="0.5"
+        minchromaticaberration="0"
+        maxchromaticaberration="100"
+        strengthchange="-0.3">
+        <StatusEffect target="Character">
+          <ReduceAffliction type="pain" amount="100" />
+        </StatusEffect>
+      </Effect>
+
+      <icon texture="%ModDir:3190189044%/Images/AfflictionIcons.png" sheetindex="2,1" sheetelementsize="128,128" origin="0,0"/>
+    </Affliction>
+  </Override>
+
 </Afflictions>
