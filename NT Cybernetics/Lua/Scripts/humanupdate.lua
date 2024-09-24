@@ -24,7 +24,12 @@ function NTCyb.UpdateHuman(character)
         local materialloss = HF.GetAfflictionStrengthLimb(character,limbtype,"ntc_materialloss",0)
     
         -- water damage if unprotected
-        if NTConfig.Get("NTCyb_waterDamage",0) > 0 and character.PressureProtection <= 1000 and HF.GetAfflictionStrengthLimb(character,limbtype,"ntc_waterproof",0) <= 0 then
+        if NTConfig.Get("NTCyb_waterDamage",0) > 0
+            and character.PressureProtection <= 1000
+            and not HF.HasAffliction(character,"stasis")
+            and not HF.HasAffliction(character,"bodybagoverlay")
+            and HF.GetAfflictionStrengthLimb(character,limbtype,"ntc_waterproof",0) <= 0
+        then
             -- in water?
             local inwater = false
             if limb~=nil and limb.InWater then inwater=true end
@@ -35,7 +40,7 @@ function NTCyb.UpdateHuman(character)
                         local spawnpos = limb.WorldPosition
                         HF.SpawnItemAt("ntcvfx_malfunction",spawnpos) end
                 end,math.random(1,500))
-                HF.AddAfflictionLimb(character,"ntc_damagedelectronics",limbtype,2*(1+loosescrews/100)*(1+materialloss/100)*NTConfig.Get("NTCyb_waterDamage",0)*NT.Deltatime)
+                HF.AddAfflictionLimb(character,"ntc_damagedelectronics",limbtype,(1+loosescrews/100)*(1+materialloss/100)*NTConfig.Get("NTCyb_waterDamage",0)*NT.Deltatime)
             end
         end
 
