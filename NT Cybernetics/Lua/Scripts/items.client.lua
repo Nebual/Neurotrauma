@@ -1,6 +1,6 @@
--- Allow the crowbar to remove cybernetics from dead bodies (and other repair related tools)
--- by patching character.IsDead to temporarily return false during the resolution of the 'apply tool' in the Health UI
+-- Allow the removal of cybernetics (limbs via crowbar, organs via surgery) from dead bodies (and other repair related tools needed for intact extraction)
 NTCyb.AllowedNecromancyItems = {
+	-- tools needed for cyberlimb repair and removal
 	weldingtool = 1,
 	steel = 1,
 	fpgacircuit = 1,
@@ -8,7 +8,7 @@ NTCyb.AllowedNecromancyItems = {
 	halligantool = 1,
 	-- tools needed for cyberorgan removal
 	advscalpel = 1,
-	advhemostat = 1,
+	advhemostat = 1, -- optional (no blood to clamp!) but many will have muscle memory for it
 	advretractors = 1,
 	multiscalpel = 1,
 }
@@ -17,37 +17,39 @@ NTCyb.AllowedNecromancyItemsStartsWith = {
 	screwdriver = 1,
 	organscalpel = 1,
 }
-local temporarilyUndeadCharacter = nil
-local function patchIsDead()
-	-- this patch is performance intensive, so we only apply it while the specific necromancy is needed
-	Hook.Patch("NTC.IsDead_Patch", "Barotrauma.Character", "get_IsDead", function (instance, ptable)
-		if temporarilyUndeadCharacter ~= nil and temporarilyUndeadCharacter == instance then
-			ptable.PreventExecution = true
-			return false
-		end
-	end, Hook.HookMethodType.Before)
-end
 
-Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
-	if instance.Character.IsDead then
-		local identifier = ptable["item"].Prefab.Identifier.Value
-		if NTCyb.AllowedNecromancyItems[identifier] ~= nil then
-			temporarilyUndeadCharacter = instance.Character
-			patchIsDead()
-		else
-			for key,_ in pairs(NTCyb.AllowedNecromancyItemsStartsWith) do
-				if HF.StartsWith(identifier,key) then
-					temporarilyUndeadCharacter = instance.Character
-					patchIsDead()
-					break
-				end
+local function itemAllowsNecromancy(item)
+	local identifier = item.Prefab.Identifier.Value
+	if NTCyb.AllowedNecromancyItems[identifier] ~= nil then
+		return true
+	else
+		for key,_ in pairs(NTCyb.AllowedNecromancyItemsStartsWith) do
+			if HF.StartsWith(identifier,key) then
+				return true
 			end
 		end
 	end
-end, Hook.HookMethodType.Before)
+	return false
+end
+
+LuaUserData.RegisterType('Barotrauma.Item+TreatmentEventData')
+local TreatmentEventData = LuaUserData.CreateStatic('Barotrauma.Item+TreatmentEventData', true)
+LuaUserData.MakeFieldAccessible(Descriptors['Barotrauma.CharacterHealth'], "selectedLimbIndex")
+
+-- In vanilla, Dead characters cannot be interacted with in the Health UI.
+-- This patch re-implements OnItemDropped() and its resulting call to item.ApplyTreatment(), which ultimately sends a TreatmentEventData to the server.
 Hook.Patch("Barotrauma.CharacterHealth", "OnItemDropped", function (instance, ptable)
-	if temporarilyUndeadCharacter ~= nil then
-		temporarilyUndeadCharacter = nil
-		Hook.RemovePatch("NTC.IsDead_Patch", "Barotrauma.Character", "get_IsDead", Hook.HookMethodType.Before)
+	if not instance.Character.IsDead then return end -- no necromancy required
+	if ptable.ReturnValue == false then return end -- dropped outside of the health UI
+
+	if not itemAllowsNecromancy(ptable["item"]) then return end
+
+	local targetLimb = instance.Character.AnimController.MainLimb
+	for _,v in pairs (instance.Character.AnimController.Limbs) do
+		if v.HealthIndex == instance.selectedLimbIndex then
+			targetLimb = v
+			break
+		end
 	end
+	Networking.CreateEntityEvent(ptable['item'], TreatmentEventData.__new(instance.Character, targetLimb))
 end, Hook.HookMethodType.After)
