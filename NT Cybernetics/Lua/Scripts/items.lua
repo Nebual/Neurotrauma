@@ -498,6 +498,17 @@ end
 
 -- overrides
 
+-- Immersive Handcuffs: allow retrieving handcuffs from dead characters (whats that have to do with this mod? nothing! but I have the power to fix it muwahaha)
+NT.ItemMethods.handcuffkey = function(item, usingCharacter, targetCharacter, limb)
+    if not targetCharacter.IsDead then return end -- if they're alive, the XML works fine
+    if HF.HasAffliction(targetCharacter, "handcuffed") then
+        HF.AddAffliction(usingCharacter, "retrievehandcuffs", 1, usingCharacter)
+        HF.AddAffliction(targetCharacter, "retrievehandcuffs", 1, usingCharacter)
+        targetCharacter.CharacterHealth.Update(1)
+        forceSyncAfflictions(targetCharacter)
+    end
+end
+
 -- Immersive Repairs compatibility
 NTCyb.ItemMethods.weldingstinger = NTCyb.ItemMethods.weldingtool
 NTCyb.ItemStartsWithMethods.repairpack = NTCyb.ItemStartsWithMethods.screwdriver

@@ -11,6 +11,8 @@ NTCyb.AllowedNecromancyItems = {
 	advhemostat = 1, -- optional (no blood to clamp!) but many will have muscle memory for it
 	advretractors = 1,
 	multiscalpel = 1,
+	-- Immersive Handcuffs compatibility
+	handcuffkey = 1,
 }
 NTCyb.AllowedNecromancyItemsStartsWith = {
 	crowbar = 1,
