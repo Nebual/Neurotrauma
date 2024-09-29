@@ -19,7 +19,7 @@
 <entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
 <entitydescription.augmentedliver>A partially synthetic liver. An improved blood filtration system capable of removing toxins and improving the immune system, ready for reinsertion. </entitydescription.augmentedliver>
 <entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
-<entitydescription.augmentedkidney>A partially synthetic kidney. Improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
+<entitydescription.augmentedkidney>A partially synthetic kidney. Improves blood production and clotting, altering blood type to C+ for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
 <entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
 <entitydescription.augmentedheart>A partially synthetic heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
 <entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
