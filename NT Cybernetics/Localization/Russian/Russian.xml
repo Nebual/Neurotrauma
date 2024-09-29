@@ -4,16 +4,16 @@
 <!-- ITEMS -->
 
 <entityname.cyberarm>Кибернетическая рука</entityname.cyberarm>
-<entitydescription.cyberarm>Рука из сплавов и электроники. Не кровоточит. Используйте после ампутации для установки.</entitydescription.cyberarm>
+<entitydescription.cyberarm>Рука из сплавов и электроники. Быстрее оригинала и не кровоточит. Используйте после ампутации для установки.</entitydescription.cyberarm>
 
 <entityname.cyberleg>Кибернетическая нога</entityname.cyberleg>
-<entitydescription.cyberleg>Нога из сплавов и электроники. Не кровоточит. Используйте после ампутации для установки.</entitydescription.cyberleg>
+<entitydescription.cyberleg>Нога из сплавов и электроники. Быстрее оригинала и не кровоточит. Используйте после ампутации для установки.</entitydescription.cyberleg>
 
 <entityname.waterproofcyberarm>Водонепроницаемая кибернетическая рука</entityname.waterproofcyberarm>
-<entitydescription.waterproofcyberarm>Водонепроницаемая рука из сплавов и электроники. Не кровоточит. Используйте после ампутации для установки.</entitydescription.waterproofcyberarm>
+<entitydescription.waterproofcyberarm>Водонепроницаемая рука из сплавов и электроники. Быстрее оригинала и не кровоточит. Используйте после ампутации для установки.</entitydescription.waterproofcyberarm>
 
 <entityname.waterproofcyberleg>Водонепроницаемая кибернетическая нога</entityname.waterproofcyberleg>
-<entitydescription.waterproofcyberleg>Водонепроницаемая нога из сплавов и электроники. Не кровоточит. Используйте после ампутации для установки.</entitydescription.waterproofcyberleg>
+<entitydescription.waterproofcyberleg>Водонепроницаемая нога из сплавов и электроники. Быстрее оригинала и не кровоточит. Используйте после ампутации для установки.</entitydescription.waterproofcyberleg>
 
 
 <entityname.augmentedliver>Кибер-аугментированая печень</entityname.augmentedliver>
