@@ -30,7 +30,7 @@
 <entityname.cyberliver>Cyberliver</entityname.cyberliver>
 <entitydescription.cyberliver>A completely synthetic liver. A top of the line blood filtration system capable of removing toxins and improving the immune system, ready for transplant. </entitydescription.cyberliver>
 <entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
-<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system which improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of original kidney to install. </entitydescription.cyberkidney>
+<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system which improves blood production and clotting, altering blood type to C+ for compatibility with other cyber implants. Use after removal of original kidney to install. </entitydescription.cyberkidney>
 <entityname.cyberheart>Cyberheart</entityname.cyberheart>
 <entitydescription.cyberheart>A completely synthetic heart. A top of the line circulatory system, improving muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.cyberheart>
 <entityname.cyberlung>Cyberlungs</entityname.cyberlung>
@@ -58,6 +58,9 @@ Can give blood to: C+</entitydescription.abcpluscard>
 
 <afflictionname.ntc_cyberleg>Cyberleg</afflictionname.ntc_cyberleg>
 <afflictiondescription.ntc_cyberleg>The leg is made of metal and electronics</afflictiondescription.ntc_cyberleg>
+
+<afflictionname.ntc_waterproof>Weatherproof</afflictionname.ntc_waterproof>
+<afflictiondescription.ntc_waterproof>The limb is not exposed to the deleterious effects of water.</afflictiondescription.ntc_waterproof>
 
 <afflictionname.ntc_cyberlung_pressure_recovery>Pressurized Cyberlung</afflictionname.ntc_cyberlung_pressure_recovery>
 <afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung is resisting severe pressure, briefly preventing implosion.</afflictiondescription.ntc_cyberlung_pressure_recovery>
