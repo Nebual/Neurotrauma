@@ -9,6 +9,45 @@
 <entityname.cyberleg>Кибернетическая нога</entityname.cyberleg>
 <entitydescription.cyberleg>Нога из сплавов и электроники. Не кровоточит. Используйте после ампутации для установки.</entitydescription.cyberleg>
 
+<entityname.waterproofcyberarm>Waterproof Cyberarm</entityname.waterproofcyberarm>
+<entitydescription.waterproofcyberarm>A waterproofed cyberarm made of metal and electronics. Faster and doesn't bleed. Use after amputation to install.</entitydescription.waterproofcyberarm>
+
+<entityname.waterproofcyberleg>Waterproof Cyberleg</entityname.waterproofcyberleg>
+<entitydescription.waterproofcyberleg>A waterproofed cyberleg made of metal and electronics. Faster and doesn't bleed. Use after amputation to install.</entitydescription.waterproofcyberleg>
+
+
+<entityname.augmentedliver>Cyber-Augmented Liver</entityname.augmentedliver>
+<entitydescription.augmentedliver>A partially synthetic liver. An improved blood filtration system capable of removing toxins and improving the immune system, ready for reinsertion. </entitydescription.augmentedliver>
+<entityname.augmentedkidney>Cyber-Augmented Kidney</entityname.augmentedkidney>
+<entitydescription.augmentedkidney>A partially synthetic kidney. Improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of the original kidney to install.</entitydescription.augmentedkidney>
+<entityname.augmentedheart>Cyber-Augmented Heart</entityname.augmentedheart>
+<entitydescription.augmentedheart>A partially synthetic heart. Improves muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.augmentedheart>
+<entityname.augmentedlung>Cyber-Augmented Lungs</entityname.augmentedlung>
+<entitydescription.augmentedlung>A partially synthetic set of lungs. Improves muscle speed, oxygen capacity, and brief pressure resistance. Use after removal of the original lungs to install.</entitydescription.augmentedlung>
+<entityname.augmentedbrain>Cyber-Augmented Brain Implant</entityname.augmentedbrain>
+<entitydescription.augmentedbrain>A neural augment chip for the brain. Improves skills, and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.augmentedbrain>
+
+<entityname.cyberliver>Cyberliver</entityname.cyberliver>
+<entitydescription.cyberliver>A completely synthetic liver. A top of the line blood filtration system capable of removing toxins and improving the immune system, ready for transplant. </entitydescription.cyberliver>
+<entityname.cyberkidney>Cyberkidney</entityname.cyberkidney>
+<entitydescription.cyberkidney>A completely synthetic kidney. A top of the line nano-blood production system which improves blood production and clotting, altering blood type to C for compatibility with other cyber implants. Use after removal of original kidney to install. </entitydescription.cyberkidney>
+<entityname.cyberheart>Cyberheart</entityname.cyberheart>
+<entitydescription.cyberheart>A completely synthetic heart. A top of the line circulatory system, improving muscle speed and blood pressure normalization. Use after removal of the original heart to install.</entitydescription.cyberheart>
+<entityname.cyberlung>Cyberlungs</entityname.cyberlung>
+<entitydescription.cyberlung>A completely synthetic set of lungs. A top of the line respiratory system, improving muscle speed, oxygen capacity, and partial pressure resistance. Use after removal of the original lungs to install.</entitydescription.cyberlung>
+<entityname.cyberbrain>Cyberbrain Positronic Implant</entityname.cyberbrain>
+<entitydescription.cyberbrain>A positronic cyberbrain implant chipset. Top of the line, supercharges skills and removes the need for analgesia in surgery. Install into the patient's existing brain.</entitydescription.cyberbrain>
+
+
+<entityname.bloodpackabcplus>Blood Pack C+</entityname.bloodpackabcplus>
+<entitydescription.bloodpackabcplus>Administerable to: C+</entitydescription.bloodpackabcplus>
+<entityname.abcpluscard>Donor card C+</entityname.abcpluscard>
+<entitydescription.abcpluscard>Can take blood from: all of them
+Can give blood to: C+</entitydescription.abcpluscard>
+
+<entityname.immunosuppressantinhaler>Immunoblocker Inhaler</entityname.immunosuppressantinhaler>
+<entitydescription.immunosuppressantinhaler>Depresses the immune system to reduce Cyberpsychosis caused by excessive cybernetic implants.</entitydescription.immunosuppressantinhaler>
+
 <!-- AFFLICTIONS -->
 
 <afflictionname.ntc_cyberlimb></afflictionname.ntc_cyberlimb>
@@ -19,6 +58,10 @@
 
 <afflictionname.ntc_cyberleg>Кибернетическая нога</afflictionname.ntc_cyberleg>
 <afflictiondescription.ntc_cyberleg>Нога сделана из металла и электроники.</afflictiondescription.ntc_cyberleg>
+
+<afflictionname.ntc_cyberlung_pressure_recovery>Pressurized Cyberlung</afflictionname.ntc_cyberlung_pressure_recovery>
+<afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung is resisting severe pressure, briefly preventing implosion.</afflictiondescription.ntc_cyberlung_pressure_recovery>
+<afflictiondescription.ntc_cyberlung_pressure_recovery.low>The Cyberlung has resisted severe pressure, and is undertaking self-repair routines.</afflictiondescription.ntc_cyberlung_pressure_recovery.low>
 
 
 <afflictionname.ntc_loosescrews>Незатянутый болт</afflictionname.ntc_loosescrews>
@@ -33,8 +76,7 @@
 <afflictionname.ntc_materialloss>Потеря материала</afflictionname.ntc_materialloss>
 <afflictiondescription.ntc_materialloss>Части конечности отсутствуют.</afflictiondescription.ntc_materialloss>
 
-
-<afflictionname.></afflictionname.>
-<afflictiondescription.></afflictiondescription.>
+<afflictionname.immunosuppressantinhaler>Inhaled Immunosuppressants</afflictionname.immunosuppressantinhaler>
+<afflictiondescription.immunosuppressantinhaler></afflictiondescription.immunosuppressantinhaler>
 
 </infotexts>
