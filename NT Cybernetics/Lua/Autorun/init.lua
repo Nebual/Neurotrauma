@@ -29,7 +29,6 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
         dofile(NTCyb.Path.."/Lua/Scripts/items.shared.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/ondamaged.lua")
         dofile(NTCyb.Path.."/Lua/Scripts/helperfunctions.lua")
-        dofile(NTCyb.Path.."/Lua/Scripts/configdata.lua")
     
         dofile(NTCyb.Path.."/Lua/Scripts/testing.lua")
 
@@ -47,3 +46,7 @@ else
         dofile(NTCyb.Path.."/Lua/Scripts/items.shared.lua")
     end, 1)
 end
+
+Timer.Wait(function()
+    dofile(NTCyb.Path.."/Lua/Scripts/configdata.lua")
+end, 1)

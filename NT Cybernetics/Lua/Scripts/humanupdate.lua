@@ -1,5 +1,6 @@
 
 
+local hasAppliedConfig = false
 function NTCyb.UpdateHuman(character)
 
     local velocity = 0
@@ -110,6 +111,15 @@ function NTCyb.UpdateHuman(character)
     end
     if HF.HasAfflictionLimb(character, "ntc_cyberbrain", LimbType.Torso, 1) then
         NTC.SetMultiplier(character, "neurotraumagain", 1 - HF.GetAfflictionStrengthLimb(character, LimbType.Torso, "ntc_cyberbrain", 0) / 200) -- 0.25 (augmented) or 0.5 (cybernetic)
+    end
+    if not hasAppliedConfig then
+        hasAppliedConfig = true
+        local cyberpsychosisChance = NTConfig.Get("NTCyb_cyberpsychosisChance", 1)
+        if cyberpsychosisChance ~= 1 then
+            HF.SetAffliction(character,"ntc_cyberpsychosis_resistance", 100 * (1-cyberpsychosisChance))
+        else
+            HF.SetAffliction(character,"ntc_cyberpsychosis_resistance", 0)
+        end
     end
 end
 

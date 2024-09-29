@@ -66,6 +66,11 @@ Can give blood to: C+</entitydescription.abcpluscard>
 <afflictiondescription.ntc_cyberlung_pressure_recovery>The Cyberlung is resisting severe pressure, briefly preventing implosion.</afflictiondescription.ntc_cyberlung_pressure_recovery>
 <afflictiondescription.ntc_cyberlung_pressure_recovery.low>The Cyberlung has resisted severe pressure, and is undertaking self-repair routines.</afflictiondescription.ntc_cyberlung_pressure_recovery.low>
 
+<!-- Hidden Cyberpsychosis technical afflictions -->
+<afflictionname.ntc_cyberpsychosis>Cyberpsychosis</afflictionname.ntc_cyberpsychosis>
+<afflictiondescription.ntc_cyberpsychosis>The patient is suffering from Cyberpsychosis, a mental disorder caused by excessive cybernetic implants.</afflictiondescription.ntc_cyberpsychosis>
+<afflictionname.ntc_cyberpsychosis_resistance>Cyberpsychosis Resistance</afflictionname.ntc_cyberpsychosis_resistance>
+<afflictiondescription.ntc_cyberpsychosis_resistance>The patient has resistance to Cyberpsychosis.</afflictiondescription.ntc_cyberpsychosis_resistance>
 
 <afflictionname.ntc_loosescrews>Loose screws</afflictionname.ntc_loosescrews>
 <afflictiondescription.ntc_loosescrews>Some screws look dangerously close to falling out. Rattling can be heard when moving the limb.</afflictiondescription.ntc_loosescrews>

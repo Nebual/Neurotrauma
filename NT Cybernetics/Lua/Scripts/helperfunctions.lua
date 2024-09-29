@@ -32,28 +32,28 @@ function NTCyb.CyberifyLimb(character,limbtype,iswaterproof)
     if limbtype == LimbType.RightArm then 
         HF.SetAffliction(character,"ra_cyber",100)
         HF.SetAfflictionLimb(character,"ntc_cyberarm",limbtype,100)
-        HF.SetAfflictionLimb(character,"ntc_armspeed",limbtype,100)
+        HF.SetAfflictionLimb(character,"ntc_armspeed",limbtype,100 * NTConfig.Get("NTCyb_cyberarmSpeed",0))
         if iswaterproof == true then
             HF.SetAfflictionLimb(character,"ntc_waterproof",limbtype,100)
         end
     elseif limbtype == LimbType.LeftArm then 
         HF.SetAffliction(character,"la_cyber",100)
         HF.SetAfflictionLimb(character,"ntc_cyberarm",limbtype,100)
-        HF.SetAfflictionLimb(character,"ntc_armspeed",limbtype,100)
+        HF.SetAfflictionLimb(character,"ntc_armspeed",limbtype,100 * NTConfig.Get("NTCyb_cyberarmSpeed",0))
         if iswaterproof == true then
             HF.SetAfflictionLimb(character,"ntc_waterproof",limbtype,100)
         end
     elseif limbtype == LimbType.RightLeg then 
         HF.SetAffliction(character,"rl_cyber",100)
         HF.SetAfflictionLimb(character,"ntc_cyberleg",limbtype,100)
-        HF.SetAfflictionLimb(character,"ntc_legspeed",limbtype,100)
+        HF.SetAfflictionLimb(character,"ntc_legspeed",limbtype,100 * NTConfig.Get("NTCyb_cyberlegSpeed",0))
         if iswaterproof == true then
             HF.SetAfflictionLimb(character,"ntc_waterproof",limbtype,100)
         end
     elseif limbtype == LimbType.LeftLeg then 
         HF.SetAffliction(character,"ll_cyber",100) 
         HF.SetAfflictionLimb(character,"ntc_cyberleg",limbtype,100)
-        HF.SetAfflictionLimb(character,"ntc_legspeed",limbtype,100)
+        HF.SetAfflictionLimb(character,"ntc_legspeed",limbtype,100 * NTConfig.Get("NTCyb_cyberlegSpeed",0))
         if iswaterproof == true then
             HF.SetAfflictionLimb(character,"ntc_waterproof",limbtype,100)
         end
