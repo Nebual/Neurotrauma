@@ -13,7 +13,9 @@ NTCyb.AllowInHealthInterface = {
     -- EK Mods compatibility
     "ekutility_metalfoam_gun",
     "ekutility_hullrepairkit",
-    "ekutility_arcwelder"
+    "ekutility_arcwelder",
+    -- Baroverhaul compatibility
+    "tadementoniteweldingtool",
 }
 
 local function evaluateExtraUseInHealthInterface()
@@ -79,6 +81,11 @@ NTCyb.ExtraSkillRequirementHints = {
     ]],
     [[
         <ExtraSkillRequirementHints identifier="ekutility_arcwelder">
+            <SkillRequirementHint identifier="mechanical" level="50" />
+        </ExtraSkillRequirementHints>
+    ]],
+    [[
+        <ExtraSkillRequirementHints identifier="tadementoniteweldingtool">
             <SkillRequirementHint identifier="mechanical" level="50" />
         </ExtraSkillRequirementHints>
     ]],
@@ -180,6 +187,11 @@ NTCyb.ExtraTreatmentSuitability = {
             <SuitableTreatment identifier="ntc_bentmetal" suitability="50"/>
         </ExtraTreatmentSuitability>
     ]],
+    [[
+        <ExtraTreatmentSuitability identifier="tadementoniteweldingtool">
+            <SuitableTreatment identifier="ntc_materialloss" suitability="50"/>
+        </ExtraTreatmentSuitability>
+    ]],
 }
 
 local function evaluateExtraTreatmentSuitability()
@@ -207,42 +219,84 @@ local function evaluateExtraTreatmentSuitability()
 end
 
 local function addCyberOrgansToSuperSoldiersTalent()
+    if not TalentPrefab.TalentPrefabs.ContainsKey("supersoldiers") then
+        return
+    end
     local supersoldiersTalent = TalentPrefab.TalentPrefabs["supersoldiers"]
-    if supersoldiersTalent ~= nil then
-        local xmlDefinition = [[
-            <overwrite>
-                <AddedRecipe itemidentifier="cyberliver" />
-                <AddedRecipe itemidentifier="cyberkidney" />
-                <AddedRecipe itemidentifier="cyberlung" />
-                <AddedRecipe itemidentifier="cyberheart" />
-                <AddedRecipe itemidentifier="cyberbrain" />
-            </overwrite>
-        ]]
-        local xml = XDocument.Parse(xmlDefinition)
-        for element in xml.Root.Elements() do
-            supersoldiersTalent.ConfigElement.Element.Add(element)
-        end
+    local xmlDefinition = [[
+        <overwrite>
+            <AddedRecipe itemidentifier="cyberliver" />
+            <AddedRecipe itemidentifier="cyberkidney" />
+            <AddedRecipe itemidentifier="cyberlung" />
+            <AddedRecipe itemidentifier="cyberheart" />
+            <AddedRecipe itemidentifier="cyberbrain" />
+        </overwrite>
+    ]]
+    local xml = XDocument.Parse(xmlDefinition)
+    for element in xml.Root.Elements() do
+        supersoldiersTalent.ConfigElement.Element.Add(element)
+    end
 
-        for descNode in supersoldiersTalent.ConfigElement.GetChildElements("Description") do
-            if descNode.GetAttributeString("tag") == "talentdescription.unlockrecipe" then
-                for replaceTag in descNode.Elements() do
-                    replaceTag.SetAttributeValue("value", replaceTag.GetAttributeString("value") .. ",entityname.cyberliver,entityname.cyberkidney,entityname.cyberlung,entityname.cyberheart,entityname.cyberbrain")
-                    break
-                end
+    for descNode in supersoldiersTalent.ConfigElement.GetChildElements("Description") do
+        if descNode.GetAttributeString("tag") == "talentdescription.unlockrecipe" then
+            for replaceTag in descNode.Elements() do
+                replaceTag.SetAttributeValue("value", replaceTag.GetAttributeString("value") .. ",entityname.cyberliver,entityname.cyberkidney,entityname.cyberlung,entityname.cyberheart,entityname.cyberbrain")
+                break
             end
         end
-        while TalentPrefab.TalentPrefabs.ContainsKey("supersoldiers") do
-            -- remove all existing versions of this talent (including overrides), as we're going to add a new combined one on top
-            TalentPrefab.TalentPrefabs.Remove(TalentPrefab.TalentPrefabs["supersoldiers"])
-        end
-        TalentPrefab.TalentPrefabs.Add(TalentPrefab.__new(supersoldiersTalent.ConfigElement, supersoldiersTalent.ContentFile), false)
     end
+    while TalentPrefab.TalentPrefabs.ContainsKey("supersoldiers") do
+        -- remove all existing versions of this talent (including overrides), as we're going to add a new combined one on top
+        TalentPrefab.TalentPrefabs.Remove(TalentPrefab.TalentPrefabs["supersoldiers"])
+    end
+    TalentPrefab.TalentPrefabs.Add(TalentPrefab.__new(supersoldiersTalent.ConfigElement, supersoldiersTalent.ContentFile), false)
 end
 
+local function patchDamageWeldingTool(itemId)
+    if not ItemPrefab.Prefabs.ContainsKey(itemId) then
+        return
+    end
+    local itemPrefab = ItemPrefab.Prefabs[itemId]
+
+    local targetElement = nil
+    for subElement in itemPrefab.ConfigElement.Elements() do
+        if subElement.Name.ToString() == 'RepairTool' then
+            targetElement = subElement
+            break
+        end
+    end
+    if targetElement == nil then
+        return
+    end
+
+    local targetEffect = nil
+    for effect in targetElement.GetChildElements('StatusEffect') do
+        if effect.GetAttribute('targettype') and string.lower(effect.GetAttributeString('targettype') or '') == 'limb' and string.lower(effect.GetAttributeString('targetlimb') or '') ~= 'head' then
+            targetEffect = effect
+            break
+        end
+    end
+    if targetEffect == nil then
+        return
+    end
+
+    local afflictions = { 'cyberarm', 'cyberleg'}
+    for affliction in afflictions do
+        local conditionalString = '<Conditional ' .. affliction .. '=\"0\"/>'
+        local conditionalElement = XElement.Parse(conditionalString)
+        local conditionalContentElement = ContentXElement(targetEffect.contentPackage, conditionalElement)
+        targetEffect.Add(conditionalContentElement)
+    end
+    targetEffect.SetAttributeValue('comparison','And')
+end
 
 Timer.Wait(function()
     addCyberOrgansToSuperSoldiersTalent()
     evaluateExtraUseInHealthInterface()
     evaluateExtraSkillRequirementHints()
     evaluateExtraTreatmentSuitability()
+    patchDamageWeldingTool('weldingtool')
+    patchDamageWeldingTool('weldingstinger')
+    patchDamageWeldingTool('ekutility_arcwelder')
+    patchDamageWeldingTool('ekutility_metalfoam_gun')
 end, 1)

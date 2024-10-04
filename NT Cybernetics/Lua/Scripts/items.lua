@@ -230,6 +230,7 @@ NTCyb.ItemMethods.weldingtool = function(item, usingCharacter, targetCharacter, 
 end
 -- EK Mods compatibility
 NTCyb.ItemMethods.ekutility_arcwelder = NTCyb.ItemMethods.weldingtool
+NTCyb.ItemMethods.tadementoniteweldingtool = NTCyb.ItemMethods.weldingtool
 
 
 NTCyb.ItemMethods.cyberarm = function(item, usingCharacter, targetCharacter, limb) 

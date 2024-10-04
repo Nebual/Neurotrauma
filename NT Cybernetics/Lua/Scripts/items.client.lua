@@ -6,6 +6,11 @@ NTCyb.AllowedNecromancyItems = {
 	fpgacircuit = 1,
 	repairpack = 1,
 	halligantool = 1,
+	weldingtorch = 1,
+	ekutility_metalfoam_gun = 1,
+	ekutility_hullrepairkit = 1,
+	ekutility_arcwelder = 1,
+	tadementoniteweldingtool = 1,
 	-- tools needed for cyberorgan removal
 	advscalpel = 1,
 	advhemostat = 1, -- optional (no blood to clamp!) but many will have muscle memory for it
