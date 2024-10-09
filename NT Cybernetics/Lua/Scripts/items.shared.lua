@@ -198,8 +198,12 @@ local function evaluateExtraTreatmentSuitability()
     LuaUserData.MakeFieldAccessible(Descriptors['Barotrauma.ItemPrefab'], 'treatmentSuitability')
     LuaUserData.RegisterType('System.Single')
     local SystemSingle = LuaUserData.CreateStatic('System.Single')
-    LuaUserData.RegisterType('System.Collections.Immutable.ImmutableDictionary')
-    LuaUserData.RegisterType('System.Collections.Immutable.ImmutableDictionary`2')
+    local wasAlreadyRegistered = LuaUserData.IsRegistered('System.Collections.Immutable.ImmutableDictionary')
+
+    if not wasAlreadyRegistered then
+        LuaUserData.RegisterType('System.Collections.Immutable.ImmutableDictionary')
+        LuaUserData.RegisterType('System.Collections.Immutable.ImmutableDictionary`2')
+    end
     LuaUserData.RegisterType('System.Collections.Immutable.ImmutableDictionary`2+Builder')
     local ImmutableDictionary = LuaUserData.CreateStatic('System.Collections.Immutable.ImmutableDictionary')
 
@@ -215,6 +219,12 @@ local function evaluateExtraTreatmentSuitability()
             item.treatmentSuitability = dictBuilder.ToImmutable()
             item.set_UseInHealthInterface(true)
         end
+    end
+    -- unregister for compatability, as when unregistered these will be converted into lua tables, and eg. BetterFabricatorUI expects that
+    if not wasAlreadyRegistered then
+        LuaUserData.UnregisterType('System.Collections.Immutable.ImmutableDictionary`2+Builder')
+        LuaUserData.UnregisterType('System.Collections.Immutable.ImmutableDictionary`2')
+        LuaUserData.UnregisterType('System.Collections.Immutable.ImmutableDictionary')
     end
 end
 
