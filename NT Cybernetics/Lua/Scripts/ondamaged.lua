@@ -37,44 +37,25 @@ NTC.AddOnDamagedHook(function (characterHealth, attackResult, hitLimb)
     end
 end)
 
+local oldDislocateLimb = NT.DislocateLimb
 NT.DislocateLimb = function(character,limbtype,strength)
     strength = strength or 1
     if strength > 0 and NTCyb.HF.LimbIsCyber(character,limbtype) then return end
-    local limbtoaffliction = {}
-    limbtoaffliction[LimbType.RightLeg] = "dislocation1"
-    limbtoaffliction[LimbType.LeftLeg] = "dislocation2"
-    limbtoaffliction[LimbType.RightArm] = "dislocation3"
-    limbtoaffliction[LimbType.LeftArm] = "dislocation4"
-    if limbtoaffliction[limbtype] == nil then return end
-    HF.AddAffliction(character,limbtoaffliction[limbtype],strength)
+    oldDislocateLimb(character,limbtype,strength)
 end
 
+local oldBreakLimb = NT.BreakLimb
 NT.BreakLimb = function(character,limbtype,strength)
     strength = strength or 5
     if strength > 0 and NTCyb.HF.LimbIsCyber(character,limbtype) then return end
-    local limbtoaffliction = {}
-    limbtoaffliction[LimbType.RightLeg] = "rl_fracture"
-    limbtoaffliction[LimbType.LeftLeg] = "ll_fracture"
-    limbtoaffliction[LimbType.RightArm] = "ra_fracture"
-    limbtoaffliction[LimbType.LeftArm] = "la_fracture"
-    limbtoaffliction[LimbType.Head] = "h_fracture"
-    limbtoaffliction[LimbType.Torso] = "t_fracture"
-    if limbtoaffliction[limbtype] == nil then return end
-    HF.AddAffliction(character,limbtoaffliction[limbtype],strength)
+    oldBreakLimb(character,limbtype,strength)
 end
 
+local oldArteryCutLimb = NT.ArteryCutLimb
 NT.ArteryCutLimb = function(character,limbtype,strength)
     strength=strength or 5
     if strength > 0 and NTCyb.HF.LimbIsCyber(character,limbtype) then return end
-    local limbtoaffliction = {}
-    limbtoaffliction[LimbType.RightLeg] = "rl_arterialcut"
-    limbtoaffliction[LimbType.LeftLeg] = "ll_arterialcut"
-    limbtoaffliction[LimbType.RightArm] = "ra_arterialcut"
-    limbtoaffliction[LimbType.LeftArm] = "la_arterialcut"
-    limbtoaffliction[LimbType.Head] = "h_arterialcut"
-    limbtoaffliction[LimbType.Torso] = "t_arterialcut"
-    if limbtoaffliction[limbtype] == nil then return end
-    HF.AddAffliction(character,limbtoaffliction[limbtype],strength)
+    oldArteryCutLimb(character,limbtype,strength)
 end
 
 end,1)
